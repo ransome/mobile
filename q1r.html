@@ -12,13 +12,12 @@
 
 	<link rel="stylesheet" href="page.css">
 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 	<script src="js/site.js"></script>
-    <script src="js/styles.js"></script>
 	<!--jqplot-->
 	<script type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
 	<script type="text/javascript" src="js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
@@ -66,7 +65,7 @@
 	</div><!-- /page -->
 
 	<script class="code" type="text/javascript">
-		$(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+		/*$(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 			var s1 = [2, 6, 7, 10];
 			var s2 = [7, 5, 3, 4];
 			var s3 = [14, 9, 3, 8];
@@ -95,7 +94,101 @@
 			  placement: 'outside'
 			}      
 			});
-		});
+		});*/
+        
+          $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+            //each of these arrays should be built dynamically from the json data
+            var plot1= [], plot2=[];
+              $("#sortable").find("li").each(function(i, e){
+                 console.log("test",this, i, $(e).html());
+                   plot1.push([i+1, $(e).html()]);
+                   plot2.push([parseFloat($(e).attr("avg")), $(e).html()]);
+                  console.log( plot1);
+                   console.log( plot2);
+                
+            });
+              plot1.reverse();
+              plot2.reverse();
+              
+           // var plot1 = [[4,"Bleeding Risk"],[3,"Stroke Risk"],[2,"Mortality Risk"],[1,"Adherence"]];
+           // var plot2 = [[3.9,"Bleeding Risk"],[3.2,"Stroke Risk"],[1.9,"Mortality Risk"],[1.1,"Adherence"]];
+            //The length of the plots determines the ticks and number of ticks
+            var numTicks = plot1.length;
+            var tickArray = new Array();
+            for (var i=0; i<numTicks; i++)
+              {
+                    tickArray.push(i+1);
+              }
+
+        plot3 = $.jqplot('chart3', 
+            [plot1, plot2],
+            {
+                animate: true,
+                captureRightClick: true,
+                seriesDefaults:{
+                    renderer:$.jqplot.BarRenderer,
+                    shadowAngle: 135,
+                    rendererOptions: {
+                        barDirection: 'horizontal',
+                        highlightMouseDown: true    
+                    },
+                    pointLabels: {show: false, formatString: '%d'},
+                },
+                series:[
+                    {label:'Your selections'},
+                    {label:'What your peers think'}
+                    ],
+                legend: {
+                    show: true,
+                    location: 'ne',     // compass direction, nw, n, ne, e, se, s, sw, w.
+                   // xoffset: 100,        // pixel offset of the legend box from the x (or x2) axis.
+                    yoffset: 300       // pixel offset of the legend box from the y (or y2) axis.
+                },
+                axisdefaults: {
+                    // show: false,    // wether or not to renderer the axis.  Determined automatically.
+                        min: 0,      // minimum numerical value of the axis.  Determined automatically.
+                        max: numTicks ,    // maximum numverical value of the axis.  Determined automatically.
+                        pad: 1,       // a factor multiplied by the data range on the axis to give the
+                            // axis range so that data points don't fall on the edges of the axis.
+                        ticks: tickArray,//[1,2,3,4,5],      // a 1D [val1, val2, ...], or 2D [[val, label], [val, label], ...]
+                            // array of ticks to use.  Computed automatically.
+                        numberTicks: numTicks,
+                        renderer: $.jqplot.LinearAxisRenderer,  // renderer to use to draw the axis,
+    
+                        tickOptions: {
+                            mark: 'outside',    // Where to put the tick mark on the axis
+                                                // 'outside', 'inside' or 'cross',
+                            showMark: true,
+                            showGridline: true, // wether to draw a gridline (across the whole grid) at this tick,
+                            markSize: 4,        // length the tick will extend beyond the grid in pixels.  For
+                                                // 'cross', length will be added above and below the grid boundary,
+                            show: false,         // wether to show the tick (mark and label),
+                            showLabel: false,    // wether to show the text label at the tick,
+                            formatString: '',   // format string to use with the axis tick formatter
+                        },
+                        showTicks: true,        // wether or not to show the tick labels,
+                        showTickMarks: true,    // wether or not to show the tick marks
+                },
+                axes: {
+                    yaxis: {
+                        renderer: $.jqplot.CategoryAxisRenderer
+                    },
+                    
+                    xaxis: {
+                        tickInterval: 1,
+                        ticks: tickArray,//[1,2,3,4,5],
+                        drawMajorGridlines: true,
+                        drawMinorGridlines: true,
+                        drawMajorTickMarks: true,
+                        rendererOptions: {
+                            tickInset: 0.5,
+                            minorTicks: 1
+                        }
+                    }
+                }
+            });
+        }); 
+        
 	</script>    
 </body>
 </html>
