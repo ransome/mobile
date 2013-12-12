@@ -65,46 +65,12 @@
 	</div><!-- /page -->
 
 	<script class="code" type="text/javascript">
-		/*$(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
-			var s1 = [2, 6, 7, 10];
-			var s2 = [7, 5, 3, 4];
-			var s3 = [14, 9, 3, 8];
-			plot3 = $.jqplot('chart3', [s1, s2, s3], {
-			stackSeries: true,
-			captureRightClick: true,
-			seriesDefaults:{
-			  renderer:$.jqplot.BarRenderer,
-			  rendererOptions: {
-			      barMargin: 30,
-			      highlightMouseDown: true    
-			  },
-			  pointLabels: {show: true}
-			},
-			axes: {
-			  xaxis: {
-			      renderer: $.jqplot.CategoryAxisRenderer
-			  },
-			  yaxis: {
-			    padMin: 0
-			  }
-			},
-			legend: {
-			  show: true,
-			  location: 'se', // compass direction, nw, n, ne, e, se, s, sw, w.
-			  placement: 'outside'
-			}      
-			});
-		});*/
-        
           $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
             //each of these arrays should be built dynamically from the json data
             var plot1= [], plot2=[];
               $("#sortable").find("li").each(function(i, e){
-                 console.log("test",this, i, $(e).html());
-                   plot1.push([i+1, $(e).html()]);
-                   plot2.push([parseFloat($(e).attr("avg")), $(e).html()]);
-                  console.log( plot1);
-                   console.log( plot2);
+				plot1.push([i+1, $(e).html()]);
+				plot2.push([parseFloat($(e).jqmData( "avg" )), $(e).html()]);
                 
             });
               plot1.reverse();
