@@ -17,6 +17,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    
 	<script src="js/site.js"></script>
 	<!--jqplot-->
 	<script type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
@@ -24,6 +25,7 @@
 	<script type="text/javascript" src="js/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
 	<script type="text/javascript" src="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 	<script type="text/javascript" src="js/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/plugins/jqplot.enhancedLegendRenderer.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css" />
 	<!--//-->
 </head> 
@@ -49,7 +51,7 @@
 				<h2>{{result_header}}</h2>
 			</div>
 			<div id="result_content">
-				<div id="chart3" style="margin-top:5px; margin-left:0; width:300px; height:300px;"></div>
+				<div id="chart3" style="margin-top:5px; margin-left:0; width:350px; height:270px;"></div>
 			</div>
 		</div><!-- /content -->
 
@@ -66,24 +68,29 @@
 
 	<script class="code" type="text/javascript">
           $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+              $.jqplot.config.enablePlugins = true;
             //each of these arrays should be built dynamically from the json data
             var plot1= [], plot2=[];
               $("#sortable").find("li").each(function(i, e){
-				plot1.push([i+1, $(e).html()]);
-				plot2.push([parseFloat($(e).jqmData( "avg" )), $(e).html()]);
+                  var s = $(e).html().replace(' ', '<br>');
+                  console.log(s);
+				plot1.push([i+1, s]);
+				plot2.push([parseFloat($(e).jqmData( "avg" )), s]);
                 
             });
               plot1.reverse();
               plot2.reverse();
+              var colorArray=[];
+              colorArray = ['#f96802', '#dcd2ba'];
               
            // var plot1 = [[4,"Bleeding Risk"],[3,"Stroke Risk"],[2,"Mortality Risk"],[1,"Adherence"]];
            // var plot2 = [[3.9,"Bleeding Risk"],[3.2,"Stroke Risk"],[1.9,"Mortality Risk"],[1.1,"Adherence"]];
             //The length of the plots determines the ticks and number of ticks
             var numTicks = plot1.length;
             var tickArray = new Array();
-            for (var i=0; i<numTicks; i++)
+            for (var i=0; i<numTicks+1; i++)
               {
-                    tickArray.push(i+1);
+                    tickArray.push(i);
               }
 
         plot3 = $.jqplot('chart3', 
@@ -91,49 +98,53 @@
             {
                 animate: true,
                 captureRightClick: true,
+                seriesColors:colorArray,
+                 grid: {
+                    drawGridLines: true,        // wether to draw lines across the grid or not.
+                    gridLineColor: '#cccccc',    // *Color of the grid lines.
+                    background: '#ffffff',      // CSS color spec for background color of grid.
+                    borderColor: '#999999',     // CSS color spec for border around grid.
+                    borderWidth: 0,           // pixel width of border around grid.
+                    shadow: false,               // draw a shadow for grid.
+                    shadowAngle: 0,            // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 0,          // offset from the line of the shadow.
+                    shadowWidth: 0,             // width of the stroke for the shadow.
+                    shadowDepth: 0,             // Number of strokes to make when drawing shadow.
+                                                // Each stroke offset by shadowOffset from the last.
+                    shadowAlpha: 0,           // Opacity of the shadow
+                    renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
+                    rendererOptions: {}         // options to pass to the renderer.  Note, the default
+                                                // CanvasGridRenderer takes no additional options.
+                },
                 seriesDefaults:{
                     renderer:$.jqplot.BarRenderer,
-                    shadowAngle: 135,
+                    shadowAngle: 0,
+                    shadowAlpha: 0,
                     rendererOptions: {
                         barDirection: 'horizontal',
-                        highlightMouseDown: true    
+                        highlightMouseDown: true   ,
+                        barWidth: 18,
+                        barPadding: 0,
+                        barMargin: 0,
+                        shadowAngle: 0,
+                        shadowAlpha: 0
                     },
                     pointLabels: {show: false, formatString: '%d'},
                 },
                 series:[
-                    {label:'Your selections'},
-                    {label:'What your peers think'}
+                    {label:'Your pick'},
+                    {label:'Average'}
                     ],
                 legend: {
                     show: true,
-                    location: 'ne',     // compass direction, nw, n, ne, e, se, s, sw, w.
-                   // xoffset: 100,        // pixel offset of the legend box from the x (or x2) axis.
-                    yoffset: 300       // pixel offset of the legend box from the y (or y2) axis.
-                },
-                axisdefaults: {
-                    // show: false,    // wether or not to renderer the axis.  Determined automatically.
-                        min: 0,      // minimum numerical value of the axis.  Determined automatically.
-                        max: numTicks ,    // maximum numverical value of the axis.  Determined automatically.
-                        pad: 1,       // a factor multiplied by the data range on the axis to give the
-                            // axis range so that data points don't fall on the edges of the axis.
-                        ticks: tickArray,//[1,2,3,4,5],      // a 1D [val1, val2, ...], or 2D [[val, label], [val, label], ...]
-                            // array of ticks to use.  Computed automatically.
-                        numberTicks: numTicks,
-                        renderer: $.jqplot.LinearAxisRenderer,  // renderer to use to draw the axis,
-    
-                        tickOptions: {
-                            mark: 'outside',    // Where to put the tick mark on the axis
-                                                // 'outside', 'inside' or 'cross',
-                            showMark: true,
-                            showGridline: true, // wether to draw a gridline (across the whole grid) at this tick,
-                            markSize: 4,        // length the tick will extend beyond the grid in pixels.  For
-                                                // 'cross', length will be added above and below the grid boundary,
-                            show: false,         // wether to show the tick (mark and label),
-                            showLabel: false,    // wether to show the text label at the tick,
-                            formatString: '',   // format string to use with the axis tick formatter
-                        },
-                        showTicks: true,        // wether or not to show the tick labels,
-                        showTickMarks: true,    // wether or not to show the tick marks
+                    placement: 'outside',
+                    location: 's',     // compass direction, nw, n, ne, e, se, s, sw, w.
+                   // xoffset: 200,        // pixel offset of the legend box from the x (or x2) axis.
+                   // yoffset: 300 ,      // pixel offset of the legend box from the y (or y2) axis.
+                    renderer: $.jqplot.EnhancedLegendRenderer,
+                    rendererOptions: {
+                        numberRows: 1
+                    }
                 },
                 axes: {
                     yaxis: {
@@ -141,14 +152,15 @@
                     },
                     
                     xaxis: {
+                        renderer: $.jqplot.LinearAxisRenderer,
                         tickInterval: 1,
                         ticks: tickArray,//[1,2,3,4,5],
                         drawMajorGridlines: true,
-                        drawMinorGridlines: true,
-                        drawMajorTickMarks: true,
+                        drawMinorGridlines: false,
+                        drawMajorTickMarks: false,
                         rendererOptions: {
-                            tickInset: 0.5,
-                            minorTicks: 1
+                            tickInset: 0,
+                            minorTicks: 0
                         }
                     }
                 }
@@ -158,3 +170,5 @@
 	</script>    
 </body>
 </html>
+    
+    

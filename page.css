@@ -26,11 +26,11 @@
 #sortable.ui-shadow { box-shadow: none; }
 a.btn-default, #sortable li {
 	margin: 5px; 
-	border: 1px solid rgb(006,188,232); 
+	border: 1px solid rgb(87,143,194); 
 	border-radius: .6em; 
 	font-family: Helvetica Neue; 
 	font-weight: normal; 
-	color: rgb(006,188,232); 
+	color: rgb(87,143,194); 
 	font-size: 10pt;
 	background-image: none;
 	background-color: transparent;
@@ -38,7 +38,7 @@ a.btn-default, #sortable li {
 }
 a.btn-default:active,
 a.btn-default:visited,
-a.btn-default:hover { color: rgb(006,188,232); }
+a.btn-default:hover { color: rgb(87,143,194); }
 .ui-header a.btn-default { top: -2px; right: 8px; }
 
 .control .ui-btn {
