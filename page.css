@@ -4,9 +4,9 @@
 
 .ui-header.ui-bar-a { background: none; background-color: #444; }
 .ui-header, .ui-footer { border: 0; }
-h2 { font-weight: 200; }
+h2, p { font-weight: 200; }
 
-#logo { margin: 15% auto 0 auto; display: block; }
+#logo { margin: 0 auto; display: block; text-align: center; }
 
 .info_banner { margin:0; padding: 0;  height: 45px;
     overflow: hidden;}
@@ -98,5 +98,6 @@ a.btn-default:hover { color: rgb(87,143,194); }
 	#ad_space { width: 100%; }
 }
 @media (max-height:  320px) {
+	.ui-mobile body .app-page { padding-bottom: 0 !important; }
 	[data-role=footer] { position: relative !important; }
 }
