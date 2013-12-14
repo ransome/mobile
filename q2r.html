@@ -84,7 +84,7 @@
        
         $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
            $.jqplot.config.enablePlugins = true;
-            var formatString: function(){return '%s (100%)';}()
+           
             //this arrays should be built dynamically from the json data to include the average data and the labels
           var plot1 = [[90, "Bleeding<br>Risk"],[25, "Stroke<br>Risk" ],[73,"Mortality<br>Risk"],[42, "Adherence"],[48,"INR/PT<br>test"]];
             ////*****/based on bubbles popped build color array, For items popped by the user, use one color: orange. for all others use another color: tan.
