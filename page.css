@@ -1,8 +1,12 @@
 .ui-mobile, .ui-mobile body { height: auto; font-family: "Helvetica Neue"; }
-
+.ui-mobile, .ui-mobile .ui-body-c { color: rgb(63,63,63); }
 .ui-mobile body .app-page { background: none; background-color: #fff; }
 
-#logo { margin: 5% auto 0 auto; display: block; }
+.ui-header.ui-bar-a { background: none; background-color: #444; }
+.ui-header, .ui-footer { border: 0; }
+h2 { font-weight: 200; }
+
+#logo { margin: 15% auto 0 auto; display: block; }
 
 .info_banner { margin:0; padding: 0;  height: 45px;
     overflow: hidden;}
@@ -26,15 +30,16 @@
 #sortable.ui-shadow { box-shadow: none; }
 a.btn-default, #sortable li {
 	margin: 5px; 
-	border: 1px solid rgb(87,143,194); 
+	border: 1px solid rgb(83,141,192); 
 	border-radius: .6em; 
 	font-family: Helvetica Neue; 
 	font-weight: normal; 
-	color: rgb(87,143,194); 
+	color: rgb(83,141,192); 
 	font-size: 10pt;
 	background-image: none;
 	background-color: transparent;
 	text-shadow: none;
+	text-align: center;
 }
 a.btn-default:active,
 a.btn-default:visited,
@@ -49,13 +54,28 @@ a.btn-default:hover { color: rgb(87,143,194); }
 	user-select: none;
 }
 
-#score_content span { font-size: 52px; color: blue; display: block; margin: -10px 0; }
+#score_content { position: relative; }
+#score_content > h2 { color: rgb(51,51,51); margin-bottom: 0.2rem; }
+#score_content > p { margin: 0; margin-bottom: 2.5rem; }
+#score_content span { 
+	display: block; 
+	margin: 0; 
+	font-size: 5rem; 
+	color: rgb(122, 143, 146); 
+}
+#score_content .small_logo { position: absolute; right: 15px; bottom: 15px; }
+#score_content small {
+    display: block;
+    margin-top: -10px;
+}
+
 #question_content > h2 {
     margin: 0;
+    color: rgb(122,143,146);
 }
 #ftr-content {
 	width: 100%; height: 100px; 
-	background-color: rgb(119, 0, 73); 
+	background-color: rgb(83, 141, 192); 
 	color: rgb(255, 255, 255); 
 	text-shadow: none;
 }
@@ -75,7 +95,7 @@ a.btn-default:hover { color: rgb(87,143,194); }
 #ISI a:active, #ISI a:hover { color: #2489CE; font-weight: bold; }
 
 @media (max-width: 800px) {
-	#logo, #ad_space, .graph { width: 100%; }
+	#ad_space { width: 100%; }
 }
 @media (max-height:  320px) {
 	[data-role=footer] { position: relative !important; }
