@@ -4,9 +4,10 @@
 
 .ui-header.ui-bar-a { background: none; background-color: #444; }
 .ui-header, .ui-footer { border: 0; }
+
 h2, p { font-weight: 200; }
 
-#logo { margin: 0 auto; display: block; text-align: center; }
+#logo { margin: 18% auto 0 auto; display: block; text-align: center; }
 
 .info_banner { margin:0; padding: 0;  height: 45px;
     overflow: hidden;}
@@ -56,7 +57,7 @@ a.btn-default:hover { color: rgb(87,143,194); }
 
 #score_content { position: relative; }
 #score_content > h2 { color: rgb(51,51,51); margin-bottom: 0.2rem; }
-#score_content > p { margin: 0; margin-bottom: 2.5rem; }
+#score_content > p { margin: 0; margin-bottom: 1.5rem; }
 #score_content span { 
 	display: block; 
 	margin: 0; 
@@ -73,6 +74,9 @@ a.btn-default:hover { color: rgb(87,143,194); }
     margin: 0;
     color: rgb(122,143,146);
 }
+
+#q2 .ui-content { background-color: rgb(211, 234, 238); }
+
 #ftr-content {
 	width: 100%; height: 100px; 
 	background-color: rgb(83, 141, 192); 
@@ -93,7 +97,13 @@ a.btn-default:hover { color: rgb(87,143,194); }
 }
 #ISI a:link, #ISI a:visited, 
 #ISI a:active, #ISI a:hover { color: #2489CE; font-weight: bold; }
-
+/*
+.ui-mobile body .app-page table.jqplot-table-legend { left: 0; width: 100%; position: relative; border: 0; }
+.ui-mobile body .app-page table.jqplot-table-legend tr { position: absolute; top: 0; }
+.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(0) { left: 0; }
+.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(1) { right: 0; }
+table.jqplot-table-legend, table.jqplot-cursor-legend { border: 0; }
+*/
 @media (max-width: 800px) {
 	#ad_space { width: 100%; }
 }

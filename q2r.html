@@ -9,37 +9,30 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<title>PV Game: Mobile</title> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+	<link rel="stylesheet" href="page.css">
 
-	<!--jqplot-->
+    <!--jqplot-->
     <link class="include" rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css" />
     <link type="text/css" rel="stylesheet" href="js/jqplot/syntaxhighlighter/styles/shCoreDefault.min.css" />
     <link type="text/css" rel="stylesheet" href="js/jqplot/syntaxhighlighter/styles/shThemejqPlot.min.css" />
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.pointLabels.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.logAxisRenderer.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.canvasTextRenderer.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.dateAxisRenderer.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"/>
-    <link type="text/css" rel="stylesheet" href="js/jqplot/plugins/jqplot.barRenderer.min.js"/>
-	<!--//-->
-
-	<link rel="stylesheet" href="page.css">
+    <!--//-->
 
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.3.1/jquery.cookie.min.js"></script>    
 	<script src="js/site.js"></script>
-	<!--jqplot-->
-    <script class="include" type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
-    <script type="text/javascript" src="js/jqplot/syntaxhighlighter/scripts/shCore.min.js"></script>
-    <script type="text/javascript" src="js/jqplot/syntaxhighlighter/scripts/shBrushJScript.min.js"></script>
-    <script type="text/javascript" src="js/jqplot/syntaxhighlighter/scripts/shBrushXml.min.js"></script>
-    <script language="javascript" type="text/javascript" src="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-	<!--//-->
+    <!--jqplot-->
+    <script type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/plugins/jqplot.enhancedLegendRenderer.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css" />
+    <!--//-->
 
 </head> 
 
@@ -64,7 +57,7 @@
 				<h2>{{result_header}}</h2>
 			</div>
 			<div id="result_content">
-				<div id="chart5" style="margin-top:20px;width:350px; height:270px;"></div>
+				<div id="chart5" style="margin-top:5px; margin-left:0; width:270px; height:300px;"></div>
 			</div>
 		</div><!-- /content -->
 
