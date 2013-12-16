@@ -21,10 +21,10 @@
     <script src="js/styles.js"></script>
 	<!--jqplot-->
 	<script type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="js/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-	<script type="text/javascript" src="js/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
-	<script type="text/javascript" src="js/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-	<script type="text/javascript" src="js/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/syntaxhighlighter/scripts/shCore.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/syntaxhighlighter/scripts/shBrushJScript.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/syntaxhighlighter/scripts/shBrushXml.min.js"></script>
+	<script type="text/javascript" src="js/jqplot/plugins/jqplot.bubbleRenderer.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css" />
 	<!--//-->
 </head> 
@@ -50,7 +50,8 @@
 				<h2>{{question_header}}</h2>
 				<p>{{question_text}}</p>
 			</div>
-			<canvas id="canvas" width="200" height="100"></canvas>		
+			<div id="canvasBubble" class="plot" style="margin-top:5px; margin-left:0; width:282px; height:310px;"></div>
+			<!--<canvas id="canvasBubble" style="margin-top:5px; margin-left:0; width:282px; height:310px;"></canvas>-->		
 		</div><!-- /content -->
 
 		<div data-role="footer" id="ftr" data-position="fixed" data-fullscreen="false" data-dom-cache="true">
@@ -64,6 +65,47 @@
 		</div><!-- /footer -->
 	</div><!-- /page -->
 
+<script class="code" language="javascript" type="text/javascript">$(document).ready(function(){
+
+    var colorArray=[];
+    colorArray = ['#ffffff', '#def5f9', '#8bcffa', '#eafcff'];
+
+    var arr = [[11, 123, 1236, "Acura"], [45, 92, 1067, "Alfa Romeo"], 
+    [24, 104, 1176, "AM General"], [50, 23, 610, "Aston Martin Lagonda"], 
+    [18, 17, 539, "Audi"], [7, 89, 864, "BMW"], [2, 13, 1026, "Bugatti"]];
+    
+    plot2 = $.jqplot('canvasBubble',[arr],{
+    	animate: true,
+        seriesColors:colorArray,
+         grid: {
+            drawGridLines: true,        // wether to draw lines across the grid or not.
+            gridLineColor: '#d3eaee',    // *Color of the grid lines.
+            background: '#d3eaee',      // CSS color spec for background color of grid.
+            borderColor: '#d3eaee',     // CSS color spec for border around grid.
+            borderWidth: 0,           // pixel width of border around grid.
+            shadow: false,               // draw a shadow for grid.
+            shadowAngle: 0,            // angle of the shadow.  Clockwise from x axis.
+            shadowOffset: 0,          // offset from the line of the shadow.
+            shadowWidth: 0,             // width of the stroke for the shadow.
+            shadowDepth: 0,             // Number of strokes to make when drawing shadow.
+                                        // Each stroke offset by shadowOffset from the last.
+            shadowAlpha: 0,           // Opacity of the shadow
+            renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
+            rendererOptions: {}         // options to pass to the renderer.  Note, the default
+                                        // CanvasGridRenderer takes no additional options.
+        },
+		seriesDefaults:{
+		    renderer: $.jqplot.BubbleRenderer,
+		    rendererOptions: {
+		        bubbleAlpha: 0.6,
+		        highlightAlpha: 0.8
+		    },
+		    shadow: true,
+		    shadowAlpha: 0.05
+		}
+    });
+    
+});</script>
 
 </body>
 </html>

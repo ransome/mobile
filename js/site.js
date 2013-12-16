@@ -1,4 +1,4 @@
-var __t, __d, __id, __localStorage;
+var __t, __d, __id, __localCookie;
 var __speed = 50;
 tdata = {};
 var numOfQuestions = 0;
@@ -41,7 +41,6 @@ function scroll_isi() {
 }
 
 $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
-	//console.log('ps',event, ui, $(this));
 	__id = $(this)
 
 	if ($(this).find('last')) {
@@ -50,49 +49,52 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 
 	$("#ISI").scrollTop(0);
 
-	if(typeof(Storage)!=="undefined")
-	{
-		localStorage.segment = $(this).jqmData( "segment" );
-	}
+	//use cookie to store values
+	$.cookie('__segment', $(this).jqmData( "segment" ));
+	var __segment = $.cookie('__segment');
 
 	__d = $(this).jqmData( "selectdata" );
-	//console.log("__d",__d)
 
 	if(typeof(__d)!=="undefined"){
-		//console.log(filePathJSON)
-		$.getJSON(__d+'.json', function(json, textStatus) {
-			var count = Object.keys(json).length
-			if (__d == "question") { localStorage.count = count; };
-			if ( localStorage.segment != 0) {
-				$('.info_banner span.question').empty().append(localStorage.segment +" of "+ localStorage.count);
-				$('.info_banner span.score').empty().append(localStorage.score);
-				$('.info_banner span.rank').empty().append(localStorage.rank);
+		getPageParam(); //get JSON demo folder
+
+		$.getJSON("json/"+folderJSON+"/"+__d+'.json', function(json, textStatus) {
+			var __pages, __score, __rank;
+			var count = Object.keys(json).length;
+			$.cookie("__pages", count); 
+
+			__score = $.cookie('__score');
+			__rank = $.cookie('__rank');
+			__pages = $.cookie('__pages');
+
+			if ( __segment != 0) {
+				$('.info_banner span.question').empty().append(__segment +" of "+ __pages);
+				$('.info_banner span.score').empty().append(__score);
+				$('.info_banner span.rank').empty().append(__rank);
 			}
 			
 			if (textStatus == "success") {
 				$.extend(tdata, json);
-				__localStorage = "question"+localStorage.segment
+				__localCookie = "question"+__segment
 
 				$.each(tdata, function(index, val) {
 
-					if (index == __localStorage){
+					if (index == __localCookie){
 		 				tdata = val
 		 				if (__d == "question") {
 		 					renderJSONContent.questionJSON();
 		 				}
 		 				if (__d == "scores") {
-		 					if(typeof(Storage)!=="undefined")
-							{
-								localStorage.score = tdata.score;
-								localStorage.rank = tdata.rank;
-							}
+		 					//use cookie to store values
+		 					$.cookie('__score', tdata.score);
+		 					$.cookie('__rank', tdata.rank);
 		 					renderJSONContent.scoreJSON();
 		 				}
 		 				if (__d == "ad") {
 		 					//data-next="q2" data-segment="1"
 		 					/*numOfQuestions++;
 
-		 					if (numOfQuestions == parseInt(localStorage.count)) {
+		 					if (numOfQuestions == parseInt(__pages)) {
 		 						$.mobile.loadPage( "last.html", {prefetch:"true"} );
 		 						$.mobile.changePage("last.html", { transition: "none" }, true, true );
 		 					} else { 
@@ -115,42 +117,60 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 
 var renderJSONContent = {
 	questionJSON: function(){
-		//console.log("questionJSON: ", __localStorage, __d, __id, tdata)
+		//console.log("questionJSON: ", __localCookie, __d, __id, tdata)
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
 		$(__id).find('#question_content').show('fast').html(questionHTML);
-		if (__localStorage == "question1") {
+		if (__localCookie == "question1") {
 			getListView();
 		};
 	},
 	scoreJSON: function(){
-		//console.log("scoreJSON: ", __localStorage, __d, __id, tdata)
+		//console.log("scoreJSON: ", __localCookie, __d, __id, tdata)
 		var scoreContent = $(__id).find('#score_content').html();
 		var scoreHTML = Mustache.to_html(scoreContent, tdata);
 		$(__id).find('#score_content').empty().show('fast').html(scoreHTML);
 	},
 	adJSON: function(){
-		//console.log("adJSON: ", __localStorage, __d, __id, tdata, numOfQuestions)
+		//console.log("adJSON: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		var adContent = '<div id="ad_space" class="ui-grid-solo"><div class="ui-block-a"><img src="{{image_url}}" id="ad_space" /></div></div>';
 		var adHTML = Mustache.to_html(adContent, tdata);
 		$(__id).find('#ad_content').show('fast').html(adHTML);
 	},
 	lastPage: function(){
-		//console.log("lastPage: ", __localStorage, __d, __id, tdata, numOfQuestions)
+		//console.log("lastPage: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		$('.info_banner span.question').empty().append("&nbsp;");
 		$('.info_banner span.score').empty().append(localStorage.score);
 		$('.info_banner span.rank').empty().append(localStorage.rank);
-		$('a#return').attr('href', location.protocol+"//"+location.host+"/mobile/mobile.html");
+		$('a#return').attr('href', window.location.href.match(/^.*\//)[0]+"mobile.html");
 	}
 }
 
+
 function getListView(){
+	var plot1= [], plot2=[];
     $('#sortable')
         .sortable({
             'containment': 'parent',
             'opacity': 0.6,
             update: function(event, ui) {
-                console.log(event, ui)
+                $('#sortable').find("li").each(function(i, e){
+                	var s = $(e).html().replace(' ', '<br>');
+                	plot1.push([i+1, s]);
+                	plot2.push([parseFloat($(e).jqmData( "avg" )), s]);
+                });
+
+                plot1.reverse();
+                plot2.reverse();
+
+	            //use cookie to store data plots
+	            $.removeCookie('__plot1');
+	            $.removeCookie('__plot2');
+
+	            $.cookie("__plot1", plot1); 
+	            $.cookie("__plot2", plot2); 
+
+                $("#q1 .control .next").removeClass( "ui-disabled" );
             }
         })
         .disableSelection()

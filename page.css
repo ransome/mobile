@@ -97,13 +97,15 @@ a.btn-default:hover { color: rgb(87,143,194); }
 }
 #ISI a:link, #ISI a:visited, 
 #ISI a:active, #ISI a:hover { color: #2489CE; font-weight: bold; }
-/*
-.ui-mobile body .app-page table.jqplot-table-legend { left: 0; width: 100%; position: relative; border: 0; }
-.ui-mobile body .app-page table.jqplot-table-legend tr { position: absolute; top: 0; }
-.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(0) { left: 0; }
-.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(1) { right: 0; }
-table.jqplot-table-legend, table.jqplot-cursor-legend { border: 0; }
-*/
+
+td.jqplot-table-legend.jqplot-table-legend-swatch{
+	text-align: center;
+	padding-top: 0px;
+	width: 10px;
+}
+.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(1) { float: left; }
+.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(2) { float: right; }
+
 @media (max-width: 800px) {
 	#ad_space { width: 100%; }
 }

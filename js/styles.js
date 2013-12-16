@@ -1,5 +1,7 @@
 var folderJSON;
+
 function getPageParam() {
+    console.log("getPageParam");
 
     __param = $.mobile.path.parseUrl(window.location);
     __p = __param.search.split("?")
@@ -59,3 +61,4 @@ var filePathJSON = {
 function createBarRenderer () {
     
 }//createBarRenderer
+
