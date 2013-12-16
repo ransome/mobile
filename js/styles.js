@@ -1,32 +1,4 @@
-var folderJSON;
 
-function getPageParam() {
-    console.log("getPageParam");
-
-    __param = $.mobile.path.parseUrl(window.location);
-    __p = __param.search.split("?")
-    var b = {};
-    if(__p.length > 1){
-
-	    getParam = __p[1].split('&')
-	    for (var i = 0; i < getParam.length; ++i)
-        {
-            var p=getParam[i].split('=');
-            if (p.length != 2) continue;
-            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-        }
-        for(folder in b){
-        	if ( folder == "demo") {
-        		folderJSON = b.demo
-        	} else { 
-        		folderJSON = "demo1"; 
-        	}
-        }
-    } else {
-    	folderJSON = "demo1"
-    }
-
-}
 var filePathJSON = {
     ifFileExists: function(url){
         $.getJSON(url, function(qdata, textStatus) {})

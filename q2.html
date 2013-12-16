@@ -65,8 +65,9 @@
 		</div><!-- /footer -->
 	</div><!-- /page -->
 
-<script class="code" language="javascript" type="text/javascript">$(document).ready(function(){
-
+<script class="code" language="javascript" type="text/javascript">
+$(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+	$.jqplot.config.enablePlugins = true;
     var colorArray=[];
     colorArray = ['#ffffff', '#def5f9', '#8bcffa', '#eafcff'];
 
@@ -90,7 +91,7 @@
             shadowDepth: 0,             // Number of strokes to make when drawing shadow.
                                         // Each stroke offset by shadowOffset from the last.
             shadowAlpha: 0,           // Opacity of the shadow
-            renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
+            //renderer: $.jqplot.CanvasGridRenderer,  // renderer to use to draw the grid.
             rendererOptions: {}         // options to pass to the renderer.  Note, the default
                                         // CanvasGridRenderer takes no additional options.
         },
@@ -98,12 +99,41 @@
 		    renderer: $.jqplot.BubbleRenderer,
 		    rendererOptions: {
 		        bubbleAlpha: 0.6,
-		        highlightAlpha: 0.8
+		        highlightAlpha: 0.8,
+		        highlightMouseDown: false, //diesable jqplotDataHighlight
+		        highlightMouseOver: false //diesable jqplotDataHighlight
 		    },
 		    shadow: true,
 		    shadowAlpha: 0.05
 		}
     });
+
+	var canvasArr, labelArr, clickBubble, userSelectedBubble = [];
+
+	$('#canvasBubble').bind('jqplotDataClick',
+		function (ev, seriesIndex, pointIndex, data) {
+			//console.log("click",ev, seriesIndex, pointIndex, data, arr[pointIndex], arr, $(this));
+			clickBubble = arr[pointIndex];
+
+			//create array from canvas container
+			canvasArr = $.makeArray( $(this).find(".jqplot-series-canvas .jqplot-bubble-point") );
+			labelArr = $.makeArray( $(this).find(".jqplot-series-canvas .jqplot-bubble-label") );
+
+			//search for click location and hide from canvas container
+			for( t in labelArr){
+				var searchHTML = $.inArray($(labelArr[t]).html(), arr[pointIndex]);
+				if($.inArray($(labelArr[t]).html().toString(), clickBubble) != -1) {
+					var options = {};
+					$(labelArr[t]).hide()
+					$(canvasArr[t]).effect( "puff", options, 300);
+				}
+			}
+
+			//user selected bubble
+			userSelectedBubble.push(arr[pointIndex])
+			console.log("userSelectedBubble",userSelectedBubble);
+	});
+
     
 });</script>
 
