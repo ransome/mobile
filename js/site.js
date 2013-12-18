@@ -123,7 +123,7 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 				$.extend(tdata, json);
 				__localCookie = "question"+__segment;
 				$.each(tdata, function(index, val) {
-                    localStorage.setItem("json", json);
+                    //localStorage.setItem("json", json);
                     //console.log("2", json.question2);
 					if (index == __localCookie){
 		 				tdata = val
