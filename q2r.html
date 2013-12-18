@@ -52,19 +52,19 @@
 			</div>
 		</div><!-- /header -->
 
-		<div data-role="content">
+		<div data-role="content" style="margin-top:0px; margin-left:0; width:282px; height:262px;">
 			<div id="question_content" style="display:none;">
-				<h2>{{result_header}}</h2>
+				<h3>{{result_header}}</h3>
 			</div>
 			<div id="result_content">
-				<div id="chart5" style="margin-top:5px; margin-left:0; width:282px; height:310px;"></div>
+				<div id="chart5" style="margin-top:0px; margin-left:0; width:282px; height:210px;"></div>
 			</div>
 		</div><!-- /content -->
 
 		<div data-role="footer" id="ftr" data-position="fixed" data-fullscreen="false" data-dom-cache="true">
 			<div class="ui-grid-a" id="ftr-content" width="100%" height="100">
 				<div class="ui-block-a" id="sponsored">
-				this program<br> sponsored by<br/><br/>
+				this program sponsored by<br/>
 				<img width="120" src="img/logo_eliquis.png"/>
 			</div>
 
@@ -73,26 +73,51 @@
 	</div><!-- /page -->
 
 	<script class="code" type="text/javascript">
-          //getPageParam();
        
         $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+            $("#chart5").empty();
+           // var page = "#q2r";
            $.jqplot.config.enablePlugins = true;
+           var __plotQ2R =$.cookie('__plotResults');
+           var __colorArray =$.cookie('__colorArray');
            
-            //this arrays should be built dynamically from the json data to include the average data and the labels
-          var plot1 = [[90, "Bleeding<br>Risk"],[25, "Stroke<br>Risk" ],[73,"Mortality<br>Risk"],[42, "Adherence"],[48,"INR/PT<br>test"]];
-            ////*****/based on bubbles popped build color array, For items popped by the user, use one color: orange. for all others use another color: tan.
-            var colorArray=[];
-            colorArray = ['#f96802', '#dcd2ba', '#f96802', '#f96802', '#dcd2ba'];
+            //decode cookie
+            var __p1=__plotQ2R.replace(/([^,]+,[^,]+),/g,'$1;');
+            var __p2=__colorArray.replace(/([^,]+,[^,]+),/g,'$1;');
+
+            var bar1=[];
+            var __bar1 = new String(__p1);
+
+            function makePlotArray (s, name){
+                for (i in s) {
+                    if(name == "bar1"){
+                        arr = s[i].split(',')
+                        bar1.push([parseInt(arr[0]),arr[1]]);
+                    }
+                }
+            }
+            makePlotArray(__bar1.split(';'), "bar1");
+          
+            var __colorArray = [];
+            var s = __p2.split(",");
+            for (i in s) {
+                        var arr = s[i].split(';');
+                         for (j in arr) {
+                            __colorArray.push(arr[j]);
+                      }
+                    }
+           // console.log(__colorArray, bar1);
+
       plot5 = $.jqplot('chart5', 
-            [plot1],//, plot1],
+            [bar1],//, plot1],
             {
                 animate: true,
-                seriesColors:colorArray,
+                seriesColors:__colorArray,
                 series:[
                     {label:'Your picks'},
                    // {label:'What your peers think'}
                     {pointLabels:{
-                        show: true,
+                        show: false,
                         formatString: '%s (?%%)' 
                       }}
                     ],
@@ -105,17 +130,17 @@
                         barDirection: 'horizontal',
                         highlightMouseDown: true   ,
                         barWidth: 18,
-                        barPadding: 0,
+                        barPadding: -5,
                         barMargin: 0,
                         shadowAngle: 0,
                         shadowAlpha: 0
                     },
                 },
                 grid: {
-                    drawGridLines: true,        // wether to draw lines across the grid or not.
-                    gridLineColor: '#cccccc',    // *Color of the grid lines.
+                    drawGridLines: false,        // wether to draw lines across the grid or not.
+                    gridLineColor: '#fff',    // *Color of the grid lines.
                     background: '#ffffff',      // CSS color spec for background color of grid.
-                    borderColor: '#999999',     // CSS color spec for border around grid.
+                    borderColor: '#fff',     // CSS color spec for border around grid.
                     borderWidth: 0,           // pixel width of border around grid.
                     shadow: false,               // draw a shadow for grid.
                     shadowAngle: 0,            // angle of the shadow.  Clockwise from x axis.
@@ -128,30 +153,43 @@
                     rendererOptions: {}         // options to pass to the renderer.  Note, the default
                                                 // CanvasGridRenderer takes no additional options.
                 },
-                
-                legend: {
+                 legend: {
                     show: true,
-                    //placement: 'outside',
+                    placement: 'outside',
                     location: 's',     // compass direction, nw, n, ne, e, se, s, sw, w.
-                    xoffset: 100,        // pixel offset of the legend box from the x (or x2) axis.
-                    yoffset: 300 ,      // pixel offset of the legend box from the y (or y2) axis.
+                   // xoffset: 200,        // pixel offset of the legend box from the x (or x2) axis.
+                   // yoffset: 300 ,      // pixel offset of the legend box from the y (or y2) axis.
                     renderer: $.jqplot.EnhancedLegendRenderer,
-                    placement: 'outsideGrid',
-                    shrinkGrid: true,
                     rendererOptions: {
-                        numberRows : 1
+                        numberRows: 1
                     }
                 },
                 axes: {
                     xaxis: {
+                       // renderer: $.jqplot.AxisLabelRenderer,
+                        show: false,    // wether or not to renderer the axis.  Determined automatically.
+                        min: 0, 
+                        max: 120,
+                        rendererOptions: {
+                           drawBaseline: false
+                        },
+                        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+                         pad: 1.05,
+                        tickOptions: { formatString: '%%%d', showMark: false, showLabel: false },
+                        showTickMarks: false,
+                        showLabel: false,
+                        textColor: "#fff"
+                        
                     },
                     yaxis: {    
-                          renderer: $.jqplot.CategoryAxisRenderer,
-                        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
-                        tickOptions: {
-                           // angle: -90,
-                           // fontSize: '10pt'
-                        }
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        rendererOptions: {
+                           drawBaseline: false
+                        },
+                        //tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+                        // pad: 1.05,
+                       // tickOptions: { formatString: '$%d', showMark: false },
+                       // showTickMarks: false,
                     }  
                 }
             });

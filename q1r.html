@@ -52,17 +52,17 @@
 
 		<div data-role="content">
 			<div id="question_content" style="display:none;">
-				<h2>{{result_header}}</h2>
+				<h3>{{result_header}}</h3>
 			</div>
 			<div id="result_content">
-				<div id="chart3" style="margin-top:5px; margin-left:0; width:282px; height:310px;"></div>
+				<div id="chart3" style="margin-top:0px; margin-left:0; width:282px; height:210px;"></div>
 			</div>
 		</div><!-- /content -->
 
 		<div data-role="footer" id="ftr" data-position="fixed" data-fullscreen="false" data-dom-cache="true">
-			<div class="ui-grid-a" id="ftr-content" width="100%" height="100">
+			<div class="ui-grid-a" id="ftr-content" width="100%" height="70">
 				<div class="ui-block-a" id="sponsored">
-				this program<br> sponsored by<br/><br/>
+				this program sponsored by<br/>
 				<img width="120" src="img/logo_eliquis.png"/>
 			</div>
 
@@ -72,8 +72,9 @@
 
 	<script class="code" type="text/javascript">
         $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+           
+             $("#chart3").empty();
             $.jqplot.config.enablePlugins = true;
-
             var __plot1, __plot2;
 
             //read q1 cookie
@@ -81,8 +82,8 @@
             __plot2 = $.cookie('__plot2');
 
             //decode cookie
-            __p1=__plot1.replace(/([^,]+,[^,]+),/g,'$1;');
-            __p2=__plot2.replace(/([^,]+,[^,]+),/g,'$1;');
+            var __p1=__plot1.replace(/([^,]+,[^,]+),/g,'$1;');
+            var __p2=__plot2.replace(/([^,]+,[^,]+),/g,'$1;');
 
             var bar1=[], bar2=[];
             var __bar1 = new String(__p1);

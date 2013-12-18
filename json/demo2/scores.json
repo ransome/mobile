@@ -3,12 +3,12 @@
 	{
 		"question_id": 1,
 		"score": 100,
-		"rank": 3
+		"rank": "3rd"
 	},
 	"question2": 
 	{
 		"question_id": 2,
 		"score": 400,
-		"rank": 1
+		"rank": "1st"
 	}
 }

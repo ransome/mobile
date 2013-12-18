@@ -2,16 +2,24 @@ var __t, __d, __id, __localCookie;
 var __speed = 50;
 tdata = {};
 var numOfQuestions = 0;
+var selectedColor = "#f96802";
+var defaultColor = "#dcd2ba";
+var colorArray = []; 
+var plotItems = []; 
+var plotResults = [];
+
 
 $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
-	var page = "#" + $( this ).attr( "id" ),
+	   var page = "#" + $( this ).attr( "id" ),
 		// Get the filename of the next page that we stored in the data-next attribute
 		next = $( this ).jqmData( "next" );
+    //console.log(page, next);
 	
 	// Check if we did set the data-next attribute
 	if ( next ) {
+         
 		// Prefetch the next page
-		$.mobile.loadPage( next + ".html", {prefetch:"true"} );
+		//$.mobile.loadPage( next + ".html", {prefetch:"true"} );
 		// Navigate to next page on swipe left
 		$( document ).on( "swipeleft", page, function() {
 			$.mobile.changePage( next + ".html", { transition: "none" }, true, true);
@@ -26,7 +34,16 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 	else {
 		$( ".control .next", page ).addClass( "ui-disabled" );
 	}
-
+    if (page == "#main"){
+        var cookies = $.cookie();
+        for(var cookie in cookies) {
+           $.removeCookie(cookie);
+        }
+        $('.info_banner span.question').empty();
+		$('.info_banner span.score').empty();
+		$('.info_banner span.rank').empty();
+    }
+    
 	//footer
 	$( "[data-role='footer']#ftr #ISI" ).load( "isi.html", function() {
 		$(this).scrollTop(0);
@@ -43,8 +60,7 @@ function scroll_isi() {
 var folderJSON;
 
 function getPageParam() {
-    //console.log("getPageParam");
-
+   
     __param = $.mobile.path.parseUrl(window.location);
     __p = __param.search.split("?")
     var b = {};
@@ -70,6 +86,7 @@ function getPageParam() {
 
 }
 $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
+    
 	__id = $(this)
 
 	if ($(this).find('last')) {
@@ -104,15 +121,19 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 			
 			if (textStatus == "success") {
 				$.extend(tdata, json);
-				__localCookie = "question"+__segment
-
+				__localCookie = "question"+__segment;
 				$.each(tdata, function(index, val) {
-
+                    localStorage.setItem("json", json);
+                    //console.log("2", json.question2);
 					if (index == __localCookie){
 		 				tdata = val
 		 				if (__d == "question") {
 		 					renderJSONContent.questionJSON();
+                            getBubbleView(json.question2);
 		 				}
+                        if(__localCookie == "question2"){
+                            //getBubbleView(json.question2);
+                        }
 		 				if (__d == "scores") {
 		 					//use cookie to store values
 		 					$.cookie('__score', tdata.score);
@@ -153,6 +174,7 @@ var renderJSONContent = {
 		if (__localCookie == "question1") {
 			getListView();
 		};
+        
 	},
 	scoreJSON: function(){
 		//console.log("scoreJSON: ", __localCookie, __d, __id, tdata)
@@ -169,20 +191,81 @@ var renderJSONContent = {
 	lastPage: function(){
 		//console.log("lastPage: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		$('.info_banner span.question').empty().append("&nbsp;");
-		$('.info_banner span.score').empty().append(localStorage.score);
-		$('.info_banner span.rank').empty().append(localStorage.rank);
+		$('.info_banner span.score').empty().append($.cookie('__score'));//localStorage.score);
+		$('.info_banner span.rank').empty().append($.cookie('__rank'));//localStorage.rank);
 		$('a#return').attr('href', window.location.href.match(/^.*\//)[0]+"mobile.html");
 	}
 }
 
+function setScore(oldScore, newScore){
+      animateValue($('.info_banner span.score'), oldScore, newScore, 2000);
+    //animateValue($('.info_banner span.rank'), 50, 100, 2000);
+    	
+  }
+function animateValue(id, start, end, duration) {
+    var range = end - start;
+    var current = start;
+    var increment = end > start? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    var obj = id;
+    //console.log(obj);
+    //obj.empty().append(start);
+   var timer = setInterval(function() {
+        current += increment;
+         obj.empty().append(current);
+        if (current == end) {
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
+
+function getBubbleView(d){
+    //console.log("init bubble data");
+    var answers = d.answers
+    colorArray = [];
+   for( i in answers){
+        //console.log(answers[i].answer, answers[i].score);
+        var ans = answers[i].answer.replace(' ', '<br>')
+        plotResults[i]=[answers[i].score,answers[i].answer];
+        plotItems.push(answers[i].answer);
+        colorArray.push(defaultColor);
+    }
+    
+    //use cookie to store data plots
+    $.removeCookie('__plotResults');
+    $.removeCookie('__plotItems');
+    $.removeCookie('__colorArray');
+
+   $.cookie("__plotResults", plotResults); 
+   $.cookie("__plotItems", plotItems); 
+   $.cookie("__colorArray", colorArray); 
+}
 
 function getListView(){
-	var plot1= [], plot2=[];
+    var plot1= [], plot2=[];
+    $('#sortable').find("li").each(function(i, e){
+        var s = $(e).html().replace(' ', '<br>');
+        plot1.push([i+1, s]);
+        plot2.push([parseFloat($(e).jqmData( "avg" )), s]);
+    });
+
+    plot1.reverse();
+    plot2.reverse();
+
+    //use cookie to store data plots
+    $.removeCookie('__plot1');
+    $.removeCookie('__plot2');
+
+    $.cookie("__plot1", plot1); 
+    $.cookie("__plot2", plot2); 
+    $("#q1 .control .next").removeClass( "ui-disabled" );
+    
     $('#sortable')
         .sortable({
             'containment': 'parent',
             'opacity': 0.6,
             update: function(event, ui) {
+                plot1= [], plot2=[];
                 $('#sortable').find("li").each(function(i, e){
                 	var s = $(e).html().replace(' ', '<br>');
                 	plot1.push([i+1, s]);
