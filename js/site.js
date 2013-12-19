@@ -22,12 +22,12 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 		//$.mobile.loadPage( next + ".html", {prefetch:"true"} );
 		// Navigate to next page on swipe left
 		$( document ).on( "swipeleft", page, function() {
-			$.mobile.changePage( next + ".html", { transition: "none" }, true, true);
+			$.mobile.changePage( next + ".html", { transition: "slide" }, true, true);
 		});
 		// Navigate to next page when the "next" button is clicked
 		$( ".control .next", page ).on( "click", function(event) {
 			event.preventDefault()
-			$.mobile.changePage( next + ".html", { transition: "none" }, true, true );
+			$.mobile.changePage( next + ".html", { transition: "slide" }, true, true );
 		});
 	}
 	// Disable the "next" button if there is no next page
