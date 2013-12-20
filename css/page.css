@@ -32,7 +32,7 @@
 }
 .ui-controlgroup.ui-mini { margin: 1rem 0; }
 .ui-header .ui-icon, .ui-icon-searchfield:after {
-	background: transparent url(img/arrow.gif) 0 1px no-repeat;
+	background: transparent url(../img/arrow.gif) 0 1px no-repeat;
 	box-shadow: none;
 }
 
@@ -87,17 +87,17 @@ a.btn-default:hover { color: rgb(97,171,234); }
 
 #score_content { position: relative; }
 #score_content > h2 { color: rgb(50,50,50); margin-bottom: 0.2rem; }
-#score_content > p { margin: 0; margin-bottom: 1.5rem; }
-#score_content span { 
+#score_content > p { margin: 0; margin-bottom: 1.2rem; }
+#score_content > p > span { 
 	display: block; 
 	margin: 0; 
-	font-size: 2rem; 
+	font-size: 4rem; 
 	color: rgb(122, 143, 146); 
 }
-#score_content .small_logo { position: absolute; right: 15px; bottom: 15px; }
+#score_content .small_logo { position: absolute; right: 15px; bottom: 25px; }
 #score_content small {
     display: block;
-    margin-top: -10px;
+    margin-top: -25px;
 }
 #question_content {
     height: auto;
@@ -136,16 +136,16 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 	color: rgb(255, 255, 255); 
 	text-shadow: none;
 }
-#sponsored, #ISI { font-size: 0.6rem; }
+#sponsored, #ISI { font-size: 0.59rem; }
 #sponsored {
-	float: left; width: 42%;
+	float: left; width: 46%;
 	padding: 6px 12px; 
 	padding-top: 6px;
 	border-right: 1px solid rgb(153,153,153);
 }
 #ISI {
 	margin-left: 0px; 
-	width: 42%; height: 100%; 
+	width: 45%; height: 100%; 
 	float: right; 
 	overflow: auto;
 }
