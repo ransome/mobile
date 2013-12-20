@@ -22,12 +22,12 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 		//$.mobile.loadPage( next + ".html", {prefetch:"true"} );
 		// Navigate to next page on swipe left
 		$( document ).on( "swipeleft", page, function() {
-			$.mobile.changePage( next + ".html", { transition: "slide" }, true, true);
+			$.mobile.changePage( next + ".html", { transition: "none" }, true, true);
 		});
 		// Navigate to next page when the "next" button is clicked
 		$( ".control .next", page ).on( "click", function(event) {
 			event.preventDefault()
-			$.mobile.changePage( next + ".html", { transition: "slide" }, true, true );
+			$.mobile.changePage( next + ".html", { transition: "none" }, true, true );
 		});
 	}
 	// Disable the "next" button if there is no next page
@@ -170,7 +170,7 @@ var renderJSONContent = {
 		//console.log("questionJSON: ", __localCookie, __d, __id, tdata)
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
-		$(__id).find('#question_content').show('fast').html(questionHTML);
+		$(__id).find('#question_content').show().html(questionHTML);
 		if (__localCookie == "question1") {
 			getListView();
 		};
@@ -180,13 +180,13 @@ var renderJSONContent = {
 		//console.log("scoreJSON: ", __localCookie, __d, __id, tdata)
 		var scoreContent = $(__id).find('#score_content').html();
 		var scoreHTML = Mustache.to_html(scoreContent, tdata);
-		$(__id).find('#score_content').empty().show('fast').html(scoreHTML);
+		$(__id).find('#score_content').empty().show().html(scoreHTML);
 	},
 	adJSON: function(){
 		//console.log("adJSON: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		var adContent = '<div id="ad_space" class="ui-grid-solo"><div class="ui-block-a"><img src="{{image_url}}" id="ad_space" /></div></div>';
 		var adHTML = Mustache.to_html(adContent, tdata);
-		$(__id).find('#ad_content').show('fast').html(adHTML);
+		$(__id).find('#ad_content').show().html(adHTML);
 	},
 	lastPage: function(){
 		//console.log("lastPage: ", __localCookie, __d, __id, tdata, numOfQuestions)
