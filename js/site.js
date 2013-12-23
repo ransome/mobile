@@ -46,11 +46,12 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
     
 	//footer
 	$( "[data-role='footer']#ftr #ISI" ).load( "isi.html", function() {
+		$(this).scrollTop(0);
 		var div = $(this);
 		setInterval(function (argument) {
 			var pos = div.scrollTop(); 
 			div.scrollTop(++pos);
-		}, 30);
+		}, 50);
 	});
 });
 
