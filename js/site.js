@@ -46,16 +46,14 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
     
 	//footer
 	$( "[data-role='footer']#ftr #ISI" ).load( "isi.html", function() {
-		$(this).scrollTop(0);
-		scroll_isi();
+		var div = $(this);
+		setInterval(function (argument) {
+			var pos = div.scrollTop(); 
+			div.scrollTop(++pos);
+		}, 30);
 	});
 });
 
-function scroll_isi() {
-    if (__t) clearTimeout(__t);
-    document.getElementById("ISI").scrollTop++;
-    __t = setTimeout("scroll_isi();", __speed);
-}
 
 var folderJSON;
 
