@@ -139,7 +139,7 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 	padding-top: 0px;
 	width: 10px;
 }
-
+.ui-footer { z-index: 9999; }
 #ftr-content {
 	width: 100%; height: 100px; 
 	background-color: rgb(119, 0, 73); 
@@ -167,9 +167,12 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 	#ad_space { width: 100%; }
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+@media only screen and (min-width : 320px) and (max-width : 480px) {
 	.ui-mobile body .app-page { padding-bottom: 0 !important; }
 	[data-role=footer] { position: relative !important; }
 	#play .bx-wrapper img { margin: 0; }
 	#play li > p { text-align: left; }
+	.howtoplay > li {
+    margin-left: -35px;
+}
 }
