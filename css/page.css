@@ -1,6 +1,6 @@
 .ui-mobile, .ui-mobile body { height: auto; min-width: 320px; }
 .ui-mobile, .ui-mobile .ui-body-c { color: rgb(63,63,63); }
-.ui-mobile, .ui-mobile .ui-body-c .ui-content { background-color: rgb(255,255,255); margin: 0 10px 0 12px; min-height: 300px; }
+.ui-mobile, .ui-mobile .ui-body-c .ui-content { background-color: rgb(255,255,255); margin: 0 10px 0 12px; min-height: 290px; }
 .ui-mobile body .app-page { background: url("../img/bg-body.jpg") repeat scroll 0 0 rgb(213,222,217); font-family: "HelveticaNeueLTStdRoman","Helvetica Neue"; }
 
 .ui-header.ui-bar-a { background: none; background-color: #444; }
@@ -172,7 +172,5 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 	[data-role=footer] { position: relative !important; }
 	#play .bx-wrapper img { margin: 0; }
 	#play li > p { text-align: left; }
-	.howtoplay > li {
-    margin-left: -35px;
-}
+	.howtoplay > li { margin-left: -35px; }
 }
