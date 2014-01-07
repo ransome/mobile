@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'HelveticaNeueLTStdUltLt';
+    src: url('HelveticaNeue/HelveticaNeueLTStd-UltLt.eot');
+    src: url('HelveticaNeue/HelveticaNeueLTStd-UltLt.eot?#iefix') format('embedded-opentype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-UltLt.woff') format('woff'),
+         url('HelveticaNeue/HelveticaNeueLTStd-UltLt.ttf') format('truetype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-UltLt.svg#HelveticaNeueLTStdUltLt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTStdTh';
+    src: url('HelveticaNeue/HelveticaNeueLTStd-Th.eot');
+    src: url('HelveticaNeue/HelveticaNeueLTStd-Th.eot?#iefix') format('embedded-opentype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Th.woff') format('woff'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Th.ttf') format('truetype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Th.svg#HelveticaNeueLTStdTh') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTStdRoman';
+    src: url('HelveticaNeue/HelveticaNeueLTStd-Roman.eot');
+    src: url('HelveticaNeue/HelveticaNeueLTStd-Roman.eot?#iefix') format('embedded-opentype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Roman.woff') format('woff'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Roman.ttf') format('truetype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Roman.svg#HelveticaNeueLTStdRoman') format('svg');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTStdMd';
+    src: url('HelveticaNeue/HelveticaNeueLTStd-Md.eot');
+    src: url('HelveticaNeue/HelveticaNeueLTStd-Md.eot?#iefix') format('embedded-opentype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Md.woff') format('woff'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Md.ttf') format('truetype'),
+         url('HelveticaNeue/HelveticaNeueLTStd-Md.svg#HelveticaNeueLTStdMd') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

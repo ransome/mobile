@@ -1,7 +1,7 @@
-.ui-mobile, .ui-mobile body { height: auto; font-family: "Helvetica Neue"; min-width: 320px; }
+.ui-mobile, .ui-mobile body { height: auto; min-width: 320px; }
 .ui-mobile, .ui-mobile .ui-body-c { color: rgb(63,63,63); }
 .ui-mobile, .ui-mobile .ui-body-c .ui-content { background-color: rgb(255,255,255); margin: 0 10px 0 12px; min-height: 300px; }
-.ui-mobile body .app-page { background: none; background-color: rgb(213,222,217); }
+.ui-mobile body .app-page { background: none; background-color: rgb(213,222,217); ; font-family: "HelveticaNeueLTStdRoman","Helvetica Neue"; }
 
 .ui-header.ui-bar-a { background: none; background-color: #444; }
 .ui-header .ui-btn-right { right: 0; }
@@ -20,13 +20,14 @@
 	min-height: 48px;
 }
 
-.ui-header .ui-btn-inner { 
+.ui-controlgroup-horizontal.ui-mini .ui-btn-inner { 
 	border-radius: 7px; 
-	font-size: 1rem;
+	font-size: 1.125em;
+	line-height: 22px;
 }
 .ui-controlgroup-horizontal.ui-mini .ui-btn-inner {
 	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-bottom: 10px;
 	padding-left: 10px;
 	padding-right: 28px; 
 }
@@ -46,11 +47,16 @@ h2, p { font-weight: 200; }
 
 #logo { width: 264px; margin: 18% auto 0 auto; text-align: center; }
 #logo img { display: block; }
-#logo h2 { font-size: 1.5rem; color: rgb(97,171,234); margin-top: 10px; margin-bottom: 0; }
+#logo h2 { font-size: 1.5rem; font-family: "HelveticaNeueLTStdUltLt"; color: rgb(97,171,234); margin-top: 10px; margin-bottom: 0; }
+
+#play .bx-wrapper .bx-viewport { border:0; box-shadow:none; }
+#play .howtoplay { margin-top: 10px; }
+#play li > p { text-align: center; }
+#play .bx-wrapper img { margin: 0 auto; }
 
 .info_banner { margin:0; padding: 0; overflow: hidden;}
 
-.info_banner li small { color: rgb(204,204,204); font-size: 0.8rem; font-weight: 600; }
+.info_banner li small { color: rgb(204,204,204); font: 600 0.8rem "HelveticaNeueLTStdRoman"; }
 .info_banner li span {
 	display: block;
 	font-size: 1.3em;
@@ -64,10 +70,10 @@ a.btn-default, #sortable li {
 	margin: 5px; 
 	border: 1px solid rgb(97,171,234); 
 	border-radius: .6em; 
-	font-family: "Helvetica Neue"; 
+	font-family: "HelveticaNeueLTStdTh","Helvetica Neue"; 
 	font-weight: normal; 
 	color: rgb(97,171,234); 
-	font-size: 1em;
+	font-size: 1.125em;
 	background-image: none;
 	background-color: transparent;
 	text-shadow: none;
@@ -86,26 +92,28 @@ a.btn-default:hover { color: rgb(97,171,234); }
 }
 
 #score_content { position: relative; }
-#score_content > h2 { color: rgb(50,50,50); margin-bottom: 0.2rem; }
+#score_content > h2 { color: rgb(50,50,50); margin-bottom: 0.2rem; font-size: 0.875rem; }
 #score_content > p { margin: 0; margin-bottom: 1.2rem; }
 #score_content > p > span { 
 	display: block; 
 	margin: 0; 
-	font-size: 4rem; 
-	color: rgb(122, 143, 146); 
+	font-size: 5rem; 
+	color: rgb(122, 143, 146);
+	font-family: "HelveticaNeueLTStdUltLt","Helvetica Neue";  
 }
 #score_content .small_logo { position: absolute; right: 15px; bottom: 25px; }
 #score_content small {
     display: block;
-    margin-top: -25px;
+    margin-top: -14px;
 }
 #question_content {
     height: auto;
 }
 
 
+#play > h2,
 #question_content > h2 {
-    font-size: 1.5rem; 
+    font-size: 1.25rem; 
     font-weight: 300;
     margin: 0;
     color: #7A8F92;
@@ -114,8 +122,9 @@ a.btn-default:hover { color: rgb(97,171,234); }
     margin: 0;
     color: #7A8F92;
 }
+#play li > p,
 #question_content > p {
-    font-size: 1rem; 
+    font-size: 0.875rem; 
     font-weight: normal;
     margin: 0;
     color: #000;
@@ -123,6 +132,7 @@ a.btn-default:hover { color: rgb(97,171,234); }
 
 #q2 .ui-content { background-color: rgb(211, 234, 238); }
 #q2 .body .app-page { background-color: rgb(211, 234, 238); }
+#q2 .jqplot-yaxis { margin: 0; }
 
 td.jqplot-table-legend.jqplot-table-legend-swatch{
 	text-align: center;
@@ -156,7 +166,9 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 @media (max-width: 800px) {
 	#ad_space { width: 100%; }
 }
-@media (max-height:  320px) {
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	.ui-mobile body .app-page { padding-bottom: 0 !important; }
 	[data-role=footer] { position: relative !important; }
+	#play li > p { text-align: left; }
 }
