@@ -34,13 +34,14 @@
 	<script type="text/javascript" src="js/jqplot/plugins/jqplot.bubbleRenderer.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css" />
 	<!--//-->
+
 </head> 
 
 	
 <body> 
 
 	<!--<div data-role="page" data-theme="c" data-title="PV Game: Home" class="app-page" data-dom-cache="true" data-next="page1">-->
-	<div data-role="page" id="main" class="app-page" data-dom-cache="true" data-theme="c" data-title="PV Game: Home" data-next="q1" data-selectdata="question" data-segment="0">
+	<div data-role="page" id="main" class="app-page" data-dom-cache="true" data-theme="c" data-title="PV Game: How to Play" data-next="q1" data-selectdata="question" data-segment="0">
 
 		<div data-role="header" id="hdr" data-dom-cache="false">
 			<ul class="info_banner">
@@ -56,7 +57,7 @@
 		<div data-role="content" id="play">
 			<h2>How to Play</h2>
 			<ul class="howtoplay">
-			<li><p>Guess how your peers answer.<br>Earn points. </p>
+			<li><p>Guess how your peers answer.<br>Earn points.</p>
 				<img src="img/play-score.jpg" /></li>
 			<li><p>Rank by dragging and dropping into place.</p>
 				<img src="img/play-rank.jpg" /></li>
@@ -77,16 +78,23 @@
 			<div class="ui-block-b" id="ISI"></div>
 		</div><!-- /footer -->
 	</div><!-- /page -->
-
-	<script type="text/javascript">
-		$(document).ready(function(){
+<script type="text/javascript">
+	$( "[data-role='page'].app-page" ).on( "pageshow", function() {
+		console.log("message");
+		if($(document).find(".bx-viewport").length == 0){
 			$('.howtoplay').bxSlider({
-				infiniteLoop: false,
-				hideControlOnEnd: true
-				//mode: 'fade'
-				//slideWidth: 320
+			infiniteLoop: false,
+			hideControlOnEnd: true,
+//			adaptiveHeight:true,
+			preloadImages: "all"
+//			mode: 'fade'
+			//slideWidth: 320
 			});
-		});
-	</script>
+		}
+	});
+	window.location.href = window.location.href;
+
+</script>
+
 </body>
 </html>
