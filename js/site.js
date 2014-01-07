@@ -27,7 +27,7 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 		// Navigate to next page when the "next" button is clicked
 		$( ".control .next", page ).on( "click", function(event) {
 			event.preventDefault()
-			$.mobile.changePage( next + ".html", { transition: "none" }, true, true );
+			$.mobile.changePage( next + ".html", { transition: "none", reloadPage: true }, true, true );
 		});
 	}
 	// Disable the "next" button if there is no next page
