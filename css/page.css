@@ -170,5 +170,6 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	.ui-mobile body .app-page { padding-bottom: 0 !important; }
 	[data-role=footer] { position: relative !important; }
+	#play .bx-wrapper img { margin: 0; }
 	#play li > p { text-align: left; }
 }

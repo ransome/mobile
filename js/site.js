@@ -57,6 +57,18 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 
 
 var folderJSON;
+var resizeContentContainer = function (){
+	var thisContent = $("[data-role='content']");
+	if ($(window).height() > 321 ) {
+		var gsize = $(window).height() - ($("#ftr").height() + $("#hdr").height());
+		var gpadding = parseInt(thisContent.css("padding-top"), 10) + parseInt(thisContent.css("padding-bottom"), 10)
+		$("[data-role='content']").height( (gsize - gpadding) - 10 )
+	};
+}
+
+$(window).resize(function() {
+	resizeContentContainer();
+});
 
 function getPageParam() {
    
@@ -85,7 +97,8 @@ function getPageParam() {
 
 }
 $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
-    
+   resizeContentContainer();
+
 	__id = $(this)
 
 	if ($(this).find('last')) {

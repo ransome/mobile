@@ -80,14 +80,12 @@
 	</div><!-- /page -->
 <script type="text/javascript">
 	$( "[data-role='page'].app-page" ).on( "pageshow", function() {
-		console.log("message");
 		if($(document).find(".bx-viewport").length == 0){
 			$('.howtoplay').bxSlider({
 			infiniteLoop: false,
 			hideControlOnEnd: true,
-//			adaptiveHeight:true,
-			preloadImages: "all"
-//			mode: 'fade'
+			preloadImages: "all",
+			mode: 'fade'
 			//slideWidth: 320
 			});
 		}
