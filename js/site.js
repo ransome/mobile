@@ -12,22 +12,22 @@ var plotResults = [];
 $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 	   var page = "#" + $( this ).attr( "id" ),
 		// Get the filename of the next page that we stored in the data-next attribute
-		next = $( this ).jqmData( "next" );
-    //console.log(page, next);
+		nextpage = $( this ).jqmData( "next" );
+    //console.log(page, nextpage);
 	
 	// Check if we did set the data-next attribute
-	if ( next ) {
+	if ( nextpage ) {
          
 		// Prefetch the next page
 		//$.mobile.loadPage( next + ".html", {prefetch:"true"} );
 		// Navigate to next page on swipe left
 		$( document ).on( "swipeleft", page, function() {
-			$.mobile.changePage( next + ".html", { transition: "none" }, true, true);
+			$.mobile.changePage( nextpage + ".html", { transition: "none" }, true, true);
 		});
 		// Navigate to next page when the "next" button is clicked
 		$( ".control .next", page ).on( "click", function(event) {
 			event.preventDefault()
-			$.mobile.changePage( next + ".html", { transition: "none" }, true, true );
+			$.mobile.changePage( nextpage + ".html", { transition: "none" }, true, true );
 		});
 	}
 	// Disable the "next" button if there is no next page
