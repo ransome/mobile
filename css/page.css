@@ -4,7 +4,7 @@
 .ui-mobile body .app-page { background: url("../img/bg-body.jpg") repeat scroll 0 0 rgb(213,222,217); font-family: "HelveticaNeueLTStdRoman","Helvetica Neue"; }
 
 .ui-header.ui-bar-a { background: none; background-color: #444; }
-.ui-header .ui-btn-right { right: 0; }
+.ui-header .ui-btn-right { right: 3px; }
 .ui-header { border: 0; }
 .ui-footer { border: 0;height: 80px;}
 
