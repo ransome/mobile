@@ -234,8 +234,10 @@ var setScore = {
 		}
 		if (increment) {
 			//play sound applause
-			var snd = new Audio(sounds.applause.mp3);
-			snd.play();
+			/*var snd = new Audio(sounds.applause.mp3);
+			snd.play();*/
+			var applause_audio = document.getElementById('applause');
+			applause_audio.play();
 		};
 	},	
 	settingVal: function () {
