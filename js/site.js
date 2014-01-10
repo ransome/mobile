@@ -1,4 +1,4 @@
-var __t, __d, __id, __localCookie;
+var __t, __d, __id, __localCookie, increment;
 var __speed = 50;
 tdata = {};
 var numOfQuestions = 0;
@@ -8,6 +8,64 @@ var colorArray = [];
 var plotItems = []; 
 var plotResults = [];
 
+var audioArr = new Array("audio/ogg","audio/mp3");
+var codType = new Array("vorbis","mp3");
+var sounds = { 
+	bell: {
+		mp3: "../css/sounds/bell.mp3",
+		ogg: "../css/sounds/bell.ogg"
+	},
+	applause: {
+		mp3: "../css/sounds/applause.mp3",
+		m4a: "../css/sounds/applause.m4a",
+		wav: "../css/sounds/applause.wav",
+		ogg: "../css/sounds/applause.ogg"
+	}
+	
+};
+
+
+
+var folderJSON;
+var resizeContentContainer = function (){
+	var thisContent = $("[data-role='content']");
+	if ($(window).height() > 321 ) {
+		var gsize = $(window).height() - ($("#ftr").height() + $("#hdr").height());
+		var gpadding = parseInt(thisContent.css("padding-top"), 10) + parseInt(thisContent.css("padding-bottom"), 10)
+		$("[data-role='content']").height( (gsize - gpadding) - 10 )
+	};
+}
+
+$(window).resize(function() {
+	resizeContentContainer();
+});
+
+function getPageParam() {
+   
+    __param = $.mobile.path.parseUrl(window.location);
+    __p = __param.search.split("?")
+    var b = {};
+    if(__p.length > 1){
+
+	    getParam = __p[1].split('&')
+	    for (var i = 0; i < getParam.length; ++i)
+        {
+            var p=getParam[i].split('=');
+            if (p.length != 2) continue;
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        for(folder in b){
+        	if ( folder == "demo") {
+        		folderJSON = b.demo
+        	} else { 
+        		folderJSON = "demo1"; 
+        	}
+        }
+    } else {
+    	folderJSON = "demo1"
+    }
+
+}
 
 $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 	   var page = "#" + $( this ).attr( "id" ),
@@ -55,47 +113,6 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 	});
 });
 
-
-var folderJSON;
-var resizeContentContainer = function (){
-	var thisContent = $("[data-role='content']");
-	if ($(window).height() > 321 ) {
-		var gsize = $(window).height() - ($("#ftr").height() + $("#hdr").height());
-		var gpadding = parseInt(thisContent.css("padding-top"), 10) + parseInt(thisContent.css("padding-bottom"), 10)
-		$("[data-role='content']").height( (gsize - gpadding) - 10 )
-	};
-}
-
-$(window).resize(function() {
-	resizeContentContainer();
-});
-
-function getPageParam() {
-   
-    __param = $.mobile.path.parseUrl(window.location);
-    __p = __param.search.split("?")
-    var b = {};
-    if(__p.length > 1){
-
-	    getParam = __p[1].split('&')
-	    for (var i = 0; i < getParam.length; ++i)
-        {
-            var p=getParam[i].split('=');
-            if (p.length != 2) continue;
-            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-        }
-        for(folder in b){
-        	if ( folder == "demo") {
-        		folderJSON = b.demo
-        	} else { 
-        		folderJSON = "demo1"; 
-        	}
-        }
-    } else {
-    	folderJSON = "demo1"
-    }
-
-}
 $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
    resizeContentContainer();
 
@@ -148,22 +165,10 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
                         }
 		 				if (__d == "scores") {
 		 					//use cookie to store values
-		 					$.cookie('__score', tdata.score);
 		 					$.cookie('__rank', tdata.rank);
 		 					renderJSONContent.scoreJSON();
 		 				}
 		 				if (__d == "ad") {
-		 					//data-next="q2" data-segment="1"
-		 					/*numOfQuestions++;
-
-		 					if (numOfQuestions == parseInt(__pages)) {
-		 						$.mobile.loadPage( "last.html", {prefetch:"true"} );
-		 						$.mobile.changePage("last.html", { transition: "none" }, true, true );
-		 					} else { 
-		 						$.mobile.loadPage( "q"+numOfQuestions+".html", {prefetch:"true"} );
-		 						$.mobile.changePage( "q"+numOfQuestions+".html", { transition: "none" }, true, true );
-		 					 }
-		 					*/
 		 					$(__id).data('segment', numOfQuestions)
 		 					renderJSONContent.adJSON();
 		 				}
@@ -180,6 +185,9 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 var renderJSONContent = {
 	questionJSON: function(){
 		//console.log("questionJSON: ", __localCookie, __d, __id, tdata)
+		var snd = new Audio(sounds.bell.ogg);
+		snd.play();
+
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
 		$(__id).find('#question_content').show().html(questionHTML);
@@ -190,6 +198,11 @@ var renderJSONContent = {
 	},
 	scoreJSON: function(){
 		//console.log("scoreJSON: ", __localCookie, __d, __id, tdata)
+		if ($.cookie('__score') == null) { $.cookie('__score', 0); };
+
+		increment = tdata.score > parseInt($.cookie('__score')) ? 1 : -1;
+		setScore.timerCounter(parseInt($.cookie('__score')), tdata.score)
+
 		var scoreContent = $(__id).find('#score_content').html();
 		var scoreHTML = Mustache.to_html(scoreContent, tdata);
 		$(__id).find('#score_content').empty().show().html(scoreHTML);
@@ -203,34 +216,46 @@ var renderJSONContent = {
 	lastPage: function(){
 		//console.log("lastPage: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		$('.info_banner span.question').empty().append("&nbsp;");
-		$('.info_banner span.score').empty().append($.cookie('__score'));//localStorage.score);
-		$('.info_banner span.rank').empty().append($.cookie('__rank'));//localStorage.rank);
+		$('.info_banner span.score').empty().append($.cookie('__score'));
+		$('.info_banner span.rank').empty().append($.cookie('__rank'));
 		$('a#return').attr('href', window.location.href.match(/^.*\//)[0]+"mobile.html");
 	}
 }
 
-function setScore(oldScore, newScore){
-      animateValue($('.info_banner span.score'), oldScore, newScore, 2000);
-    //animateValue($('.info_banner span.rank'), 50, 100, 2000);
-    	
-  }
-function animateValue(id, start, end, duration) {
-    var range = end - start;
-    var current = start;
-    var increment = end > start? 1 : -1;
-    var stepTime = Math.abs(Math.floor(duration / range));
-    var obj = id;
-    //console.log(obj);
-    //obj.empty().append(start);
-   var timer = setInterval(function() {
-        current += increment;
-         obj.empty().append(current);
-        if (current == end) {
-            clearInterval(timer);
-        }
-    }, stepTime);
+var setScore = {
+	timerCounter: function (oldScore, newScore) {
+		var current = oldScore;
+		if (oldScore != tdata.score){
+			var timer = setInterval(function () {
+				current += increment;
+				$('.info_banner span.score').empty().append(current)
+				if (current == newScore) { clearInterval(timer); setScore.settingVal(); }
+			}, 5);
+		}
+		if (increment) {
+			//play sound applause
+			var snd = new Audio(sounds.applause.mp3);
+			snd.play();
+		};
+	},	
+	settingVal: function () {
+		$.cookie('__score', tdata.score);
+		$('.info_banner span.rank').empty().append(tdata.rank);
+	}
 }
-
+/*
+function playSnd (sndType) {
+	audioType = 'audio/ogg';
+	codType = 'vorbis'
+	myaudio = document.createElement('audio');
+	isSupp=myaudio.canPlayType(audioType+';codecs="'+codType+'"');
+	if (isSupp=="")
+	{
+	isSupp="No";
+	}
+	console.log(isSupp)
+}
+*/
 function getBubbleView(d){
     //console.log("init bubble data");
     var answers = d.answers
@@ -242,15 +267,15 @@ function getBubbleView(d){
         plotItems.push(answers[i].answer);
         colorArray.push(defaultColor);
     }
-    
-    //use cookie to store data plots
-    $.removeCookie('__plotResults');
-    $.removeCookie('__plotItems');
-    $.removeCookie('__colorArray');
 
-   $.cookie("__plotResults", plotResults); 
-   $.cookie("__plotItems", plotItems); 
-   $.cookie("__colorArray", colorArray); 
+	//use cookie to store data plots
+	$.removeCookie('__plotResults');
+	$.removeCookie('__plotItems');
+	$.removeCookie('__colorArray');
+
+	$.cookie("__plotResults", plotResults); 
+	$.cookie("__plotItems", plotItems); 
+	$.cookie("__colorArray", colorArray); 
 }
 
 function getListView(){
