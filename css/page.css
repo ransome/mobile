@@ -14,10 +14,10 @@
 	list-style-type: none;
 	border-right: 1px solid rgb(153,153,153);
 	text-align: center;
-	padding: 10px 4px;
+	padding: 5px 4px;
 	width: 20%;
 	float: left;
-	min-height: 48px;
+	min-height: 43px;
 }
 
 .ui-controlgroup-horizontal.ui-mini .ui-btn-inner { 
@@ -31,7 +31,7 @@
 	padding-left: 10px;
 	padding-right: 28px; 
 }
-.ui-controlgroup.ui-mini { margin: 1rem 0; }
+.ui-controlgroup.ui-mini { margin: .5rem 0; }
 .ui-header .ui-icon, .ui-icon-searchfield:after {
 	background: transparent url(../img/arrow.gif) 0 1px no-repeat;
 	box-shadow: none;
@@ -62,7 +62,7 @@ h2, p { font-weight: 200; }
 	font-size: 1.3em;
 	font-weight: 200;
 	line-height: 20px;
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
 #sortable.ui-shadow { box-shadow: none; }
