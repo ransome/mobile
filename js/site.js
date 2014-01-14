@@ -8,8 +8,8 @@ var colorArray = [];
 var plotItems = []; 
 var plotResults = [];
 
-var audioArr = new Array("audio/ogg","audio/mp3");
-var codType = new Array("vorbis","mp3");
+var deviceAgent = navigator.userAgent.toLowerCase();
+var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
 var sounds = { 
 	bell: {
 		mp3: "../css/sounds/bell.mp3",
@@ -233,23 +233,10 @@ var setScore = {
 			//play sound applause
 			setTimeout(
 				function(){
-					var deviceAgent = navigator.userAgent.toLowerCase();
-					var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
-
-					if(agentID){
-						//console.log("message",navigator.userAgent.match(/{iPhone/i));
-						var link = document.getElementById( 'play-bt' ),
-						event = document.createEvent( 'HTMLEvents' );
-						event.initEvent( 'click', true, true );
-						link.dispatchEvent( event );	
-
-					} else {
-						//$("#play-bt").trigger( "click" );
+					if(!agentID){
 						$("#audio-player")[0].play();
 					}
-					
 				},1000);
-			
 		};
 	},	
 	settingVal: function () {
@@ -258,18 +245,11 @@ var setScore = {
 	}
 }
 
-$("#play-bt").click(function(){
-	$("#audio-player")[0].play();
-})
-
-$("#pause-bt").click(function(){
-	$("#audio-player")[0].pause();
-})
-
-$("#stop-bt").click(function(){
-	$("#audio-player")[0].pause();
-	$("#audio-player")[0].currentTime = 0;
-})
+function playAudioSnd(containter){
+	if (increment) {
+		$(containter)[0].play();
+	}
+}
 
 function getBubbleView(d){
     //console.log("init bubble data");

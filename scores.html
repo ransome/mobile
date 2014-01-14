@@ -48,7 +48,7 @@
 				<li><small>Rank</small><span class="rank">&nbsp;</span></li>
 			</ul>
 			<div data-role="controlgroup" class="btn-default control ui-btn-right" data-type="horizontal" data-mini="true">
-				<a class="btn-default next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b">Next</a>
+				<a class="btn-default next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b" style="cursor:pointer" onmousedown="playAudioSnd('#audio-player')">Next</a>
 			</div>
 		</div><!-- /header -->
 
@@ -58,33 +58,7 @@
 			<h2>RANK</h2>
 			<p><span class="rank">{{rank}} </span><small>Percentile</small></p>
 			<img class="small_logo" src="img/logo-sm.jpg">
-
-
-<script>
-	$(document).ready(function(){
-		$("#play-bt").click(function(){
-			$("#audio-player")[0].play();
-			$("#message").text("Music started");
-		})
- 
-		$("#pause-bt").click(function(){
-			$("#audio-player")[0].pause();
-			$("#message").text("Music paused");
-		})
- 
-		$("#stop-bt").click(function(){
-			$("#audio-player")[0].pause();
-			$("#audio-player")[0].currentTime = 0;
-			$("#message").text("Music Stopped");
-		})
-	})
-</script>
- 
-<audio id="audio-player" name="audio-player" src="css/sounds/applause.mp3"></audio>
-<div id="message"></div>
-<a id="play-bt" style="cursor:pointer;" href="#">Play music</a> | <a id="pause-bt" href="#">Pause music</a> | <a id="stop-bt" href="#">Stop music</a>
-
-
+			<audio id="audio-player" name="audio-player" src="css/sounds/applause.mp3"></audio>
 		</div><!-- /content -->
 
 		<div data-role="footer" id="ftr" data-position="fixed" data-fullscreen="false" data-dom-cache="true">
@@ -98,5 +72,6 @@
 		</div><!-- /footer -->
 	</div><!-- /page -->
 
+<script>$(document).on( "swipeleft", playAudioSnd('#audio-player') );</script>
 </body>
 </html>
