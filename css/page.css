@@ -144,7 +144,9 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 
 .ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(2) { float: left; }
 table.jqplot-table-legend { top: 198px !important; }
-
+.ui-mobile body .app-page table.jqplot-table-legend tr:nth-child(1) .jqplot-table-legend-swatch {
+	border-color: rgb(249, 104, 2) !important;
+}
 .ui-footer { z-index: 9999; }
 #ftr-content {
 	width: 100%; height: 68px; 
