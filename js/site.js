@@ -234,10 +234,13 @@ var setScore = {
 			setTimeout(
 				function(){
 					var ua = navigator.userAgent.match(/iPhone/i);
-					event = (ua) ? "touchstart" : "click";
 
 					if( ua == "iPhone"){
-						console.log("message",navigator.userAgent.match(/iPhone/i));
+						//console.log("message",navigator.userAgent.match(/{iPhone/i));
+						var link = document.getElementById( 'play-bt' ),
+						event = document.createEvent( 'HTMLEvents' );
+						event.initEvent( 'click', true, true );
+						link.dispatchEvent( event );	
 					} else {
 						//$("#play-bt").trigger( "click" );
 						$("#audio-player")[0].play();
