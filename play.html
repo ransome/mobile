@@ -77,19 +77,19 @@
 			<div class="ui-block-b" id="ISI"></div>
 		</div><!-- /footer -->
 	</div><!-- /page -->
-<script type="text/javascript">
-	$( "[data-role='page'].app-page" ).on( "pageshow", function() {
-		if($(document).find(".bx-viewport").length == 0){
-			$('.howtoplay').bxSlider({
-				infiniteLoop: false,
-				hideControlOnEnd: true,
-				preloadImages: "all",
-				mode: 'fade'
-				//slideWidth: 320
-			});
-		}
-	});
-</script>
-
+	
+	<script type="text/javascript">
+		$( "[data-role='page'].app-page" ).on( "pageshow", function() {
+			if($(document).find(".bx-viewport").length == 0){
+				$('.howtoplay').bxSlider({
+					infiniteLoop: false,
+					hideControlOnEnd: true,
+					preloadImages: "all",
+					mode: 'fade'
+					//slideWidth: 320
+				});
+			}
+		});
+	</script>
 </body>
 </html>

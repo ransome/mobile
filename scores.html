@@ -53,19 +53,38 @@
 		</div><!-- /header -->
 
 		<div id="score_content" data-role="content" style="display:none;">
-<!--
-<audio id="audio" controls preload="none" style="width:100px;">
-<source src="css/sounds/applause.mp3" type="audio/mp3" />
-<source src="css/sounds/applause.m4a" type="audio/mp4" />
-<source src="css/sounds/applause.ogg" type="audio/ogg" />
-<p>Your browser does not support HTML5 audio.</p>
-</audio>
--->
 			<h2>SCORE</h2>
 			<p><span class="score">{{score}}</span></p>
 			<h2>RANK</h2>
 			<p><span class="rank">{{rank}} </span><small>Percentile</small></p>
 			<img class="small_logo" src="img/logo-sm.jpg">
+
+
+<script>
+	$(document).ready(function(){
+		$("#play-bt").click(function(){
+			$("#audio-player")[0].play();
+			$("#message").text("Music started");
+		})
+ 
+		$("#pause-bt").click(function(){
+			$("#audio-player")[0].pause();
+			$("#message").text("Music paused");
+		})
+ 
+		$("#stop-bt").click(function(){
+			$("#audio-player")[0].pause();
+			$("#audio-player")[0].currentTime = 0;
+			$("#message").text("Music Stopped");
+		})
+	})
+</script>
+ 
+<audio id="audio-player" name="audio-player" src="css/sounds/applause.mp3"></audio>
+<div id="message"></div>
+<a id="play-bt" href="#">Play music</a> | <a id="pause-bt" href="#">Pause music</a> | <a id="stop-bt" href="#">Stop music</a>
+
+
 		</div><!-- /content -->
 
 		<div data-role="footer" id="ftr" data-position="fixed" data-fullscreen="false" data-dom-cache="true">

@@ -29,11 +29,9 @@ var sounds = {
 var folderJSON;
 var resizeContentContainer = function (){
 	var thisContent = $("[data-role='content']");
-	console.log("window.innerHeight",window.innerHeight);
 	if (window.innerHeight > 321 ) {
 		var gsize = window.innerHeight - ($("#ftr").height() + $("#hdr").height());
 		var gpadding = parseInt(thisContent.css("padding-top"), 10) + parseInt(thisContent.css("padding-bottom"), 10)
-		console.log("gsize - gpadding",gsize, gpadding, window.clientHeight, window.innerHeight);
 		$("[data-role='content']").height( parseInt((gsize - gpadding) - 15) )
 	};
 }
@@ -187,9 +185,6 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 var renderJSONContent = {
 	questionJSON: function(){
 		//console.log("questionJSON: ", __localCookie, __d, __id, tdata)
-		var snd = new Audio(sounds.bell.ogg);
-		snd.play();
-
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
 		$(__id).find('#question_content').show().html(questionHTML);
@@ -236,8 +231,20 @@ var setScore = {
 		}
 		if (increment) {
 			//play sound applause
-			var snd = new Audio(sounds.applause.mp3);
-			snd.play();
+			setTimeout(
+				function(){
+					var ua = navigator.userAgent.match(/iPhone/i);
+					event = (ua) ? "touchstart" : "click";
+
+					if( ua == "iPhone"){
+						console.log("message",navigator.userAgent.match(/iPhone/i));
+					} else {
+						//$("#play-bt").trigger( "click" );
+						$("#audio-player")[0].play();
+					}
+					
+				},1000);
+			
 		};
 	},	
 	settingVal: function () {
@@ -245,19 +252,20 @@ var setScore = {
 		$('.info_banner span.rank').empty().append(tdata.rank);
 	}
 }
-/*
-function playSnd (sndType) {
-	audioType = 'audio/ogg';
-	codType = 'vorbis'
-	myaudio = document.createElement('audio');
-	isSupp=myaudio.canPlayType(audioType+';codecs="'+codType+'"');
-	if (isSupp=="")
-	{
-	isSupp="No";
-	}
-	console.log(isSupp)
-}
-*/
+
+$("#play-bt").click(function(){
+	$("#audio-player")[0].play();
+})
+
+$("#pause-bt").click(function(){
+	$("#audio-player")[0].pause();
+})
+
+$("#stop-bt").click(function(){
+	$("#audio-player")[0].pause();
+	$("#audio-player")[0].currentTime = 0;
+})
+
 function getBubbleView(d){
     //console.log("init bubble data");
     var answers = d.answers
