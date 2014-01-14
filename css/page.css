@@ -5,7 +5,7 @@
 
 .ui-header.ui-bar-a { background: none; background-color: #444; }
 .ui-header .ui-btn-right { right: 3px; }
-.ui-header { border: 0; }
+.ui-header { border: 0; height: 44px; }
 .ui-footer { border: 0; height: 68px; }
 
 .ui-mobile .info_banner li.ui-li,
@@ -14,10 +14,10 @@
 	list-style-type: none;
 	border-right: 1px solid rgb(153,153,153);
 	text-align: center;
-	padding: 5px 4px;
+	/*padding: 4px;*/
 	width: 20%;
 	float: left;
-	min-height: 44px;
+	height: 44px;
 }
 
 .ui-controlgroup-horizontal.ui-mini .ui-btn-inner { 
@@ -31,7 +31,7 @@
 	padding-left: 10px;
 	padding-right: 28px; 
 }
-.ui-controlgroup.ui-mini { margin: .5rem 0; }
+.ui-controlgroup.ui-mini { margin: .2rem 0; }
 .ui-header .ui-icon, .ui-icon-searchfield:after {
 	background: transparent url(../img/arrow.gif) 0 1px no-repeat;
 	box-shadow: none;
@@ -56,14 +56,16 @@ h2, p { font-weight: 200; }
 
 .info_banner { margin:0; padding: 0; overflow: hidden;}
 
-.info_banner li small { color: rgb(204,204,204); font: 600 0.8rem "HelveticaNeueLTStdRoman"; }
+.info_banner li small { color: rgb(204,204,204); font: 600 0.7rem "HelveticaNeueLTStdRoman"; }
 .info_banner li span {
 	display: block;
-	font-size: 1.3em;
+	font-size: 1.2em;
 	font-weight: 200;
 	line-height: 20px;
-	padding-top: 5px;
+	padding-top: 3px;
 }
+
+.ui-content {margin-bottom: 20px; }
 
 #sortable.ui-shadow { box-shadow: none; }
 a.btn-default, #sortable li {
@@ -154,7 +156,8 @@ td.jqplot-table-legend.jqplot-table-legend-swatch{
 	border-right: 1px solid rgb(153,153,153);
 }
 #ISI {
-	margin-left: 0px; 
+	margin-left: 0px;
+	margin-right: 10px; 
 	width: 45%; height: 100%; 
 	float: right; 
 	overflow: auto;

@@ -1,4 +1,4 @@
-var __t, __d, __id, __localCookie, increment;
+var __t, __d, __id, __localCookie, increment, interval;
 var __speed = 50;
 tdata = {};
 var numOfQuestions = 0;
@@ -29,10 +29,12 @@ var sounds = {
 var folderJSON;
 var resizeContentContainer = function (){
 	var thisContent = $("[data-role='content']");
-	if ($(window).height() > 321 ) {
-		var gsize = $(window).height() - ($("#ftr").height() + $("#hdr").height());
+	console.log("window.innerHeight",window.innerHeight);
+	if (window.innerHeight > 321 ) {
+		var gsize = window.innerHeight - ($("#ftr").height() + $("#hdr").height());
 		var gpadding = parseInt(thisContent.css("padding-top"), 10) + parseInt(thisContent.css("padding-bottom"), 10)
-		$("[data-role='content']").height( (gsize - gpadding) - 10 )
+		console.log("gsize - gpadding",gsize, gpadding, window.clientHeight, window.innerHeight);
+		$("[data-role='content']").height( parseInt((gsize - gpadding) - 15) )
 	};
 }
 
@@ -106,15 +108,15 @@ $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
 	$( "[data-role='footer']#ftr #ISI" ).load( "isi.html", function() {
 		$(this).scrollTop(0);
 		var div = $(this);
-		setInterval(function (argument) {
+		interval = setInterval(function (argument) {
 			var pos = div.scrollTop(); 
 			div.scrollTop(++pos);
-		}, 50);
+		}, 30);
 	});
 });
 
 $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
-   resizeContentContainer();
+	resizeContentContainer();
 
 	__id = $(this)
 
