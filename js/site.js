@@ -246,7 +246,7 @@ var setScore = {
 }
 
 function playAudioSnd(containter){
-	if (increment) {
+	if (increment || agentID) {
 		$(containter)[0].play();
 	}
 }
