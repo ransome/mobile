@@ -68,11 +68,10 @@ function getPageParam() {
 }
 
 $( document ).on( "pageinit", "[data-role='page'].app-page", function() {
-	   var page = "#" + $( this ).attr( "id" ),
-		// Get the filename of the next page that we stored in the data-next attribute
-		nextpage = $( this ).jqmData( "next" );
-    //console.log(page, nextpage);
-	
+	var page = "#" + $( this ).attr( "id" ),
+	// Get the filename of the next page that we stored in the data-next attribute
+	nextpage = $( this ).jqmData( "next" );
+
 	// Check if we did set the data-next attribute
 	if ( nextpage ) {
          
@@ -152,8 +151,6 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 				$.extend(tdata, json);
 				__localCookie = "question"+__segment;
 				$.each(tdata, function(index, val) {
-                    //localStorage.setItem("json", json);
-                    //console.log("2", json.question2);
 					if (index == __localCookie){
 		 				tdata = val
 		 				if (__d == "question") {
@@ -184,17 +181,15 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 
 var renderJSONContent = {
 	questionJSON: function(){
-		//console.log("questionJSON: ", __localCookie, __d, __id, tdata)
+		player.play(0)
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
 		$(__id).find('#question_content').show().html(questionHTML);
 		if (__localCookie == "question1") {
 			getListView();
 		};
-        
 	},
 	scoreJSON: function(){
-		//console.log("scoreJSON: ", __localCookie, __d, __id, tdata)
 		if ($.cookie('__score') == null) { $.cookie('__score', 0); };
 
 		increment = tdata.score > parseInt($.cookie('__score')) ? 1 : -1;
@@ -205,13 +200,11 @@ var renderJSONContent = {
 		$(__id).find('#score_content').empty().show().html(scoreHTML);
 	},
 	adJSON: function(){
-		//console.log("adJSON: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		var adContent = '<div id="ad_space" class="ui-grid-solo"><div class="ui-block-a"><img src="{{image_url}}" id="ad_space" /></div></div>';
 		var adHTML = Mustache.to_html(adContent, tdata);
 		$(__id).find('#ad_content').show().html(adHTML);
 	},
 	lastPage: function(){
-		//console.log("lastPage: ", __localCookie, __d, __id, tdata, numOfQuestions)
 		$('.info_banner span.question').empty().append("&nbsp;");
 		$('.info_banner span.score').empty().append($.cookie('__score'));
 		$('.info_banner span.rank').empty().append($.cookie('__rank'));
@@ -237,6 +230,7 @@ var setScore = {
 						$("#audio-player")[0].play();
 					}
 				},1000);
+			
 		};
 	},	
 	settingVal: function () {
@@ -252,11 +246,9 @@ function playAudioSnd(containter){
 }
 
 function getBubbleView(d){
-    //console.log("init bubble data");
     var answers = d.answers
     colorArray = [];
    for( i in answers){
-        //console.log(answers[i].answer, answers[i].score);
         var ans = answers[i].answer.replace(' ', '<br>')
         plotResults[i]=[answers[i].score,answers[i].answer];
         plotItems.push(answers[i].answer);
