@@ -10,22 +10,14 @@ var plotResults = [];
 
 var deviceAgent = navigator.userAgent.toLowerCase();
 var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
-var sounds = { 
-	bell: {
-		mp3: "../css/sounds/bell.mp3",
-		ogg: "../css/sounds/bell.ogg"
-	},
-	applause: {
-		mp3: "../css/sounds/applause.mp3",
-		m4a: "../css/sounds/applause.m4a",
-		wav: "../css/sounds/applause.wav",
-		ogg: "../css/sounds/applause.ogg"
-	},
-	audiosprite: {
-		mp3: "../css/sounds/sounds.mp3"
-	}
-	
-};
+
+var player = new Howl({
+  urls:['css/sounds/sounds.mp3','css/sounds/sounds.ogg'],
+  sprite: {
+    bell: [0,1000],
+    applause: [3000,4825]
+  }
+});
 
 
 
@@ -184,7 +176,7 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 
 var renderJSONContent = {
 	questionJSON: function(){
-		player.play(0);
+		player.play('bell');
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
 		$(__id).find('#question_content').show().html(questionHTML);
@@ -227,7 +219,7 @@ var setScore = {
 		}
 		if (increment) {
 			//play sound applause
-			player.play(5);
+			player.play('applause');
 		};
 	},	
 	settingVal: function () {
