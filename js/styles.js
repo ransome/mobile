@@ -68,7 +68,7 @@ Track.prototype.play = function (position) {
   } catch (e) {
     this.updateCallback = function () {
       track.updateCallback = null;
-      //audio.currentTime = time;
+      audio.currentTime = time;
       audio.play();
     };
     audio.play();
@@ -85,7 +85,6 @@ Track.prototype.play = function (position) {
 };
 
 var player = (function (src, n, spriteLength, audioLead) {
-    console.log("message",src, n, spriteLength, audioLead);
   var tracks = [],
       total = n,
       i;
@@ -116,13 +115,15 @@ var player = (function (src, n, spriteLength, audioLead) {
       }
     }
   };
-})('../css/sounds/bell.mp3', 1, 1, 0.1);
-
+})('../css/sounds/sounds.mp3', 1, 0.7941, 0);
+// 0.7941
 // myaudiosprite.mp3 is the complete audio sprite
 // 1 = the number of tracks, increase this for the desktop
 // 1 = the length of the individual audio clip
 // 0.25 = the lead on the audio - hopefully zero, but in case any junk is added
 
+
+// Usage: player.play(position)
 
 var filePathJSON = {
     ifFileExists: function(url){

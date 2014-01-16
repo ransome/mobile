@@ -48,7 +48,7 @@
 				<li><small>Rank</small><span class="rank">&nbsp;</span></li>
 			</ul>
 			<div data-role="controlgroup" class="btn-default control ui-btn-right" data-type="horizontal" data-mini="true">
-				<a class="btn-default next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b" style="cursor:pointer" onmousedown="playAudioSnd('#audio-player')">Next</a>
+				<a class="btn-default next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="b">Next</a>
 			</div>
 		</div><!-- /header -->
 
@@ -58,7 +58,6 @@
 			<h2>RANK</h2>
 			<p><span class="rank">{{rank}} </span><small>Percentile</small></p>
 			<img class="small_logo" src="img/logo-sm.jpg">
-			<audio id="audio-player" name="audio-player" src="css/sounds/applause.mp3"></audio>
 		</div><!-- /content -->
 
 		<div data-role="footer" id="ftr" data-position="fixed" data-fullscreen="false" data-dom-cache="true">
@@ -72,6 +71,5 @@
 		</div><!-- /footer -->
 	</div><!-- /page -->
 
-	<script>$(document).on( "swipeleft", playAudioSnd('#audio-player') );</script>
 </body>
 </html>

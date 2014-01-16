@@ -20,6 +20,9 @@ var sounds = {
 		m4a: "../css/sounds/applause.m4a",
 		wav: "../css/sounds/applause.wav",
 		ogg: "../css/sounds/applause.ogg"
+	},
+	audiosprite: {
+		mp3: "../css/sounds/sounds.mp3"
 	}
 	
 };
@@ -181,7 +184,7 @@ $(document).on('pageshow', "[data-role='page'].app-page", function(event, ui) {
 
 var renderJSONContent = {
 	questionJSON: function(){
-		player.play(0)
+		player.play(0);
 		var questionContent = $(__id).find('#question_content').html();
 		var questionHTML = Mustache.to_html(questionContent, tdata);
 		$(__id).find('#question_content').show().html(questionHTML);
@@ -224,24 +227,12 @@ var setScore = {
 		}
 		if (increment) {
 			//play sound applause
-			setTimeout(
-				function(){
-					if(!agentID){
-						$("#audio-player")[0].play();
-					}
-				},1000);
-			
+			player.play(7);
 		};
 	},	
 	settingVal: function () {
 		$.cookie('__score', tdata.score);
 		$('.info_banner span.rank').empty().append(tdata.rank);
-	}
-}
-
-function playAudioSnd(containter){
-	if (increment || agentID) {
-		$(containter)[0].play();
 	}
 }
 
