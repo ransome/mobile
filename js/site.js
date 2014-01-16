@@ -227,7 +227,7 @@ var setScore = {
 		}
 		if (increment) {
 			//play sound applause
-			player.play(7);
+			player.play(5);
 		};
 	},	
 	settingVal: function () {
